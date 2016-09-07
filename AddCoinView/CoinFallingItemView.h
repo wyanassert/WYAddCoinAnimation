@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CoinFallingItemView : UIImageView
-@property (nonatomic) BOOL hasContacted;
-@property (nonatomic, assign) BOOL hasAttached;
+
+@property (nonatomic, assign) BOOL  hasContacted;
+@property (nonatomic, assign) BOOL  hasAttached;
+
 @end
 

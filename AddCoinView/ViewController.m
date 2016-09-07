@@ -125,8 +125,8 @@
             [window addSubview:self.coinsFallingView];
         }
         
-        self.coinsFallingView.shouldShowCoinsNumberLabel = showCoinsNumber;
-        self.coinsFallingView.shouldShowCoinsPile = showCoinsPile;
+//        self.coinsFallingView.shouldShowCoinsNumberLabel = showCoinsNumber;
+//        self.coinsFallingView.shouldShowCoinsPile = showCoinsPile;
         [self.coinsFallingView addCoins:actuallyBornCoin];
         
         NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));

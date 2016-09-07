@@ -12,7 +12,6 @@
 
 @interface CoinsBirthController : NSObject
 
-// overall
 @property (nonatomic, assign) NSInteger                         totalCoinsNumber;
 @property (nonatomic, assign) NSInteger                         notBornCoinsNumer;
 @property (nonatomic, assign) NSInteger                         totalBornCoinsNumber;

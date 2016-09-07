@@ -16,9 +16,6 @@
 
 @interface CoinsFallingView : UIView
 
-@property (nonatomic) BOOL shouldShowCoinsNumberLabel;
-@property (nonatomic) BOOL shouldShowCoinsPile;
-
 @property (nonatomic, weak) id<CoinsFallingViewDelegate> delegate;
 
 - (void)willAddCoins:(NSInteger)coinsNumbers;

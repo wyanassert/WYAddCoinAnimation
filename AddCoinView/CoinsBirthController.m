@@ -15,12 +15,11 @@
 @property (nonatomic, assign) NSTimeInterval   lastCoinBornAbsoluteTime;
 @property (nonatomic, assign) NSTimeInterval   coinsBornLeftTime;
 
-
 @end
 
 @implementation CoinsBirthController
 
-- (void)prepareForCoinsBirth:(NSInteger)coinsNumber{
+- (void)prepareForCoinsBirth:(NSInteger)coinsNumber {
     
     if (coinsNumber <= 0) {
         return;
@@ -38,10 +37,10 @@
     if (self.displayLink) {
         if (self.displayLink.paused) {
             NSLog(@"displaylink paused");
-        }else{
+        } else {
             NSLog(@"displaylink ok");
         }
-    }else{
+    } else {
         NSLog(@"no display link");
     }
     
@@ -53,8 +52,7 @@
     }
 }
 
-- (void)clear{
-    
+- (void)clear {
     self.notBornCoinsNumer = 0;
     self.coinsBornLeftTime = 0;
     self.totalCoinsNumber = 0;
@@ -62,39 +60,32 @@
 }
 
 
-
-- (void)makeCoinsBorn:(NSInteger)coinsNumber{
-    
+- (void)makeCoinsBorn:(NSInteger)coinsNumber {
     if (coinsNumber <= 0) {
         return;
     }
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     NSLog(@"display_link_add_to_mainRunLoop");
-    
-    
 }
 
-
-- (void)invalidateDisplayLink{
-    
+- (void)invalidateDisplayLink {
     [self.displayLink invalidate];
     self.displayLink = nil;
     self.coinsBornLeftTime = 0.0;
     NSLog(@"display_link_invalidate");
 }
 
-- (void)update:(CADisplayLink *)displayLink{
+- (void)update:(CADisplayLink *)displayLink {
     if (self.notBornCoinsNumer <= 0) {
         NSLog(@"notBornCoinsNumer <= 0");
-    }else if(self.coinsBornLeftTime <= 0.0){
+    }else if(self.coinsBornLeftTime <= 0.0) {
         NSLog(@"coinsBornLeftTime <= 0");
     }
-    
     
     if (self.notBornCoinsNumer <= 0 || self.coinsBornLeftTime <= 0.0) {
         [self invalidateDisplayLink];
         [self.delegate coinBornDidFinished];
-    }else{
+    } else {
         NSInteger birthRate = self.notBornCoinsNumer * 1.0  / self.coinsBornLeftTime;
         NSInteger coinsNumber =  birthRate * displayLink.duration + 0.5;
         if (coinsNumber < 1) {

@@ -56,7 +56,7 @@ float coinFallingRandom(float min, float length){
 }
 
 + (CGRect)coinBirthArea{
-    return CGRectMake(100, 100, 100, 100);
+    return CGRectMake(100, 200, 100, 100);
 }
 
 #pragma mark - UIDynamics

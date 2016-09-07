@@ -23,5 +23,6 @@
 
 - (void)willAddCoins:(NSInteger)coinsNumbers;
 - (void)addCoins:(NSInteger)coinsNumber;
+- (void)confirmCoinAdded:(NSInteger)coinNumber;
 
 @end

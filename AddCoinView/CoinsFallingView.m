@@ -14,6 +14,7 @@
 #pragma mark CoinFallingItemView
 @interface CoinFallingItemView : UIImageView
 @property (nonatomic) BOOL hasContacted;
+@property (nonatomic, assign) BOOL *hasAttached;
 @end
 
 @implementation CoinFallingItemView
@@ -244,6 +245,21 @@ static BOOL coinPileAppearAnimationPlayed = NO;
     
 }
 
+- (void)confirmCoinAdded:(NSInteger)coinNumber {
+    for(UIView *view in self.subviews) {
+        if([view isKindOfClass:[CoinFallingItemView class]]) {
+            if(coinNumber <= 0) {
+                break;
+            }
+            CoinFallingItemView *item = (CoinFallingItemView *)view;
+            if(!item.hasContacted) {
+                [self popItem:item toSnap:CGPointMake(320, 10)];
+                coinNumber--;
+            }
+        }
+    }
+}
+
 #pragma mark - Private
 
 - (void)configureGeometryInfo{
@@ -290,7 +306,7 @@ static BOOL coinPileAppearAnimationPlayed = NO;
         CoinFallingItemView *view = [[CoinFallingItemView alloc]init];
 //        view.layer.contents = (__bridge id _Nullable)([[CoinFallingParameter randomCoinFallingImage] CGImage]);
         view.animationImages = [CoinFallingParameter getAnimateImageArray];
-        view.animationDuration = 2.0f;
+        view.animationDuration = 0.5f;
         view.animationRepeatCount = 0;
         [view startAnimating];
         
@@ -328,7 +344,10 @@ static BOOL coinPileAppearAnimationPlayed = NO;
 }
 
 - (void)popItem:(CoinFallingItemView *)item toSnap:(CGPoint)point {
-    
+    item.hasContacted = YES;
+    UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
+    snapBehavior.damping = 1;
+    [self.animator addBehavior:snapBehavior];
 }
 
 #pragma mark - CoinsBirthControllerDelegate

@@ -28,11 +28,17 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 50)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 400, 100, 50)];
     [button setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:button];
     
     [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 500, 100, 50)];
+    [button1 setBackgroundColor:[UIColor greenColor]];
+    [self.view addSubview:button1];
+    
+    [button1 addTarget:self action:@selector(buttonAction1:) forControlEvents:UIControlEventTouchUpInside];
     
 //    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(200, 200, 100, 100)];
 //    image.animationImages = [CoinFallingParameter getAnimateImageArray];
@@ -53,6 +59,10 @@
 
 - (void)buttonAction:(UIButton *)button {
     [self addCoins:1 showCoinsNumber:NO showCoinsPile:NO];
+}
+
+- (void)buttonAction1:(UIButton *)button {
+    [self.coinsFallingView confirmCoinAdded:1];
 }
 
 

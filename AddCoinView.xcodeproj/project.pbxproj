@@ -18,6 +18,8 @@
 		9379033A1D7EB92D0077B0F6 /* SCAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903391D7EB92D0077B0F6 /* SCAudioPlayer.m */; };
 		9379033F1D7EB9700077B0F6 /* CoinFallingParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */; };
 		937903401D7EB9700077B0F6 /* CoinsFallingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */; };
+		937903431D8037B50077B0F6 /* CoinFallingItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903421D8037B50077B0F6 /* CoinFallingItemView.m */; };
+		9389EF341D8038DE0035616D /* CoinsBirthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF331D8038DE0035616D /* CoinsBirthController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,10 @@
 		9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinFallingParameter.m; sourceTree = "<group>"; };
 		9379033D1D7EB9700077B0F6 /* CoinsFallingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsFallingView.h; sourceTree = "<group>"; };
 		9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsFallingView.m; sourceTree = "<group>"; };
+		937903411D8037B50077B0F6 /* CoinFallingItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinFallingItemView.h; sourceTree = "<group>"; };
+		937903421D8037B50077B0F6 /* CoinFallingItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinFallingItemView.m; sourceTree = "<group>"; };
+		9389EF321D8038DE0035616D /* CoinsBirthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsBirthController.h; sourceTree = "<group>"; };
+		9389EF331D8038DE0035616D /* CoinsBirthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsBirthController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,10 @@
 				9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */,
 				9379033D1D7EB9700077B0F6 /* CoinsFallingView.h */,
 				9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */,
+				9389EF321D8038DE0035616D /* CoinsBirthController.h */,
+				9389EF331D8038DE0035616D /* CoinsBirthController.m */,
+				937903411D8037B50077B0F6 /* CoinFallingItemView.h */,
+				937903421D8037B50077B0F6 /* CoinFallingItemView.m */,
 				9379030B1D7EB6DB0077B0F6 /* Main.storyboard */,
 				9379030E1D7EB6DB0077B0F6 /* Assets.xcassets */,
 				937903101D7EB6DB0077B0F6 /* LaunchScreen.storyboard */,
@@ -287,6 +297,8 @@
 			files = (
 				9379033F1D7EB9700077B0F6 /* CoinFallingParameter.m in Sources */,
 				9379030A1D7EB6DB0077B0F6 /* ViewController.m in Sources */,
+				9389EF341D8038DE0035616D /* CoinsBirthController.m in Sources */,
+				937903431D8037B50077B0F6 /* CoinFallingItemView.m in Sources */,
 				937903071D7EB6DB0077B0F6 /* AppDelegate.m in Sources */,
 				937903401D7EB9700077B0F6 /* CoinsFallingView.m in Sources */,
 				937903041D7EB6DB0077B0F6 /* main.m in Sources */,
@@ -516,6 +528,7 @@
 				9379032E1D7EB6DB0077B0F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9379032F1D7EB6DB0077B0F6 /* Build configuration list for PBXNativeTarget "AddCoinViewTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +537,7 @@
 				937903311D7EB6DB0077B0F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		937903321D7EB6DB0077B0F6 /* Build configuration list for PBXNativeTarget "AddCoinViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +546,7 @@
 				937903341D7EB6DB0077B0F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -14,10 +14,18 @@
 #pragma mark CoinFallingItemView
 @interface CoinFallingItemView : UIImageView
 @property (nonatomic) BOOL hasContacted;
-@property (nonatomic, assign) BOOL *hasAttached;
+@property (nonatomic, assign) BOOL hasAttached;
 @end
 
 @implementation CoinFallingItemView
+
+- (instancetype)init {
+    if(self = [super init]) {
+        self.hasAttached = NO;
+    }
+    return self;
+}
+
 @end
 
 #pragma mark CoinBirthControll
@@ -160,6 +168,7 @@ static BOOL coinPileAppearAnimationPlayed = NO;
 // UIDynamic
 @property (strong,nonatomic ) UIDynamicAnimator      *animator;
 @property (strong,nonatomic ) UIDynamicItemBehavior  *itemBehavior;
+@property (nonatomic, strong) UIDynamicItemBehavior  *popItemBehavior;
 @property (strong,nonatomic ) UIGravityBehavior      *gravityBehavior;
 @property (strong,nonatomic ) UICollisionBehavior    *collisionBehavior;
 @property (nonatomic, strong) UISnapBehavior         *snapBehavior;
@@ -248,12 +257,13 @@ static BOOL coinPileAppearAnimationPlayed = NO;
 - (void)confirmCoinAdded:(NSInteger)coinNumber {
     for(UIView *view in self.subviews) {
         if([view isKindOfClass:[CoinFallingItemView class]]) {
-            if(coinNumber <= 0) {
-                break;
-            }
             CoinFallingItemView *item = (CoinFallingItemView *)view;
-            if(!item.hasContacted) {
-                [self popItem:item toSnap:CGPointMake(320, 10)];
+            if(!item.hasAttached) {
+                if(coinNumber <= 0) {
+                    break;
+                }
+                CGRect endRect  = [CoinFallingParameter coinSnapArea];
+                [self popItem:item toSnap:CGPointMake(CGRectGetMidX(endRect), CGRectGetMidY(endRect))];
                 coinNumber--;
             }
         }
@@ -344,10 +354,16 @@ static BOOL coinPileAppearAnimationPlayed = NO;
 }
 
 - (void)popItem:(CoinFallingItemView *)item toSnap:(CGPoint)point {
-    item.hasContacted = YES;
-    UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
-    snapBehavior.damping = 1;
-    [self.animator addBehavior:snapBehavior];
+    if(!self.snapBehavior) {
+        [self.animator removeBehavior:self.snapBehavior];
+    }
+    
+    item.hasAttached = YES;
+    self.snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
+    self.snapBehavior.damping = 1;
+
+    [self.popItemBehavior addItem:item];
+    [self.animator addBehavior:self.snapBehavior];
 }
 
 #pragma mark - CoinsBirthControllerDelegate
@@ -439,6 +455,7 @@ static BOOL coinPileAppearAnimationPlayed = NO;
         [_animator addBehavior:self.gravityBehavior];
         [_animator addBehavior:self.collisionBehavior];
         [_animator addBehavior:self.itemBehavior];
+        [_animator addBehavior:self.popItemBehavior];
     }
     return _animator;
 }
@@ -504,6 +521,30 @@ static BOOL coinPileAppearAnimationPlayed = NO;
 
     }
     return _itemBehavior;
+}
+
+- (UIDynamicItemBehavior *)popItemBehavior {
+    if(!_popItemBehavior) {
+        _popItemBehavior = [[UIDynamicItemBehavior alloc]init];
+        _popItemBehavior.allowsRotation = YES;
+        
+        __weak UIDynamicItemBehavior *weakPopItemBehavior = _popItemBehavior;
+        __weak typeof(self) weakSelf = self;
+        _popItemBehavior.action = ^() {
+            if(!weakSelf) {
+                return ;
+            }
+            NSArray *array = [weakPopItemBehavior.items copy];
+            for(CoinFallingItemView *item in array) {
+                if(CGRectContainsPoint([CoinFallingParameter coinSnapArea], item.center)) {
+                    [weakPopItemBehavior removeItem:item];
+                    [item removeFromSuperview];
+                }
+            }
+        };
+        
+    }
+    return _popItemBehavior;
 }
 
 - (NSMutableSet *)pushBehaviors{

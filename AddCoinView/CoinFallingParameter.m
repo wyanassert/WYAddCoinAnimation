@@ -59,6 +59,10 @@ float coinFallingRandom(float min, float length){
     return CGRectMake(100, 200, 100, 100);
 }
 
++ (CGRect)coinSnapArea {
+    return CGRectMake(300, 0, 20, 20);
+}
+
 #pragma mark - UIDynamics
 + (float)coinElasticity{
     return 0.3;

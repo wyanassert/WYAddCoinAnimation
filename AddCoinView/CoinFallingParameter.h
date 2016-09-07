@@ -12,7 +12,8 @@
 #pragma mark - Coin Birth
 + (float)coinBirthDuration:(NSInteger)coinNumber;
 + (CGSize)randomCoinSize;
-+ (CGRect)coinBirthArea; // in ((0,0),(1.0,1.0))
++ (CGRect)coinBirthArea;
++ (CGRect)coinSnapArea;
 
 #pragma mark - UIDynamics
 + (float)coinElasticity;

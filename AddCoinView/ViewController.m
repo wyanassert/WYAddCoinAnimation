@@ -55,13 +55,13 @@
     UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(270, 400, 100, 50)];
     [button4 setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:button4];
-    [button4 setTitle:@"20" forState:UIControlStateNormal];
+    [button4 setTitle:@"100" forState:UIControlStateNormal];
     [button4 addTarget:self action:@selector(buttonAction4:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(270, 500, 100, 50)];
     [button5 setBackgroundColor:[UIColor greenColor]];
     [self.view addSubview:button5];
-    [button5 setTitle:@"20" forState:UIControlStateNormal];
+    [button5 setTitle:@"100" forState:UIControlStateNormal];
     [button5 addTarget:self action:@selector(buttonAction5:) forControlEvents:UIControlEventTouchUpInside];
     
 //    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(200, 200, 100, 100)];
@@ -98,11 +98,11 @@
 }
 
 - (void)buttonAction4:(UIButton *)button {
-    [self addCoins:20 showCoinsNumber:NO showCoinsPile:NO];
+    [self addCoins:100 showCoinsNumber:NO showCoinsPile:NO];
 }
 
 - (void)buttonAction5:(UIButton *)button {
-    [self.coinsFallingView confirmCoinAdded:20];
+    [self.coinsFallingView confirmCoinAdded:100];
 }
 
 

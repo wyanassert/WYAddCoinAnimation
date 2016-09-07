@@ -76,11 +76,11 @@ float coinFallingRandom(float min, float length){
 }
 
 + (float)randomCoinBirthAngle{
-    return coinFallingRandom(- M_PI * 2.0 / 3, M_PI / 3);
+    return coinFallingRandom(- M_PI * 3.0 / 4, M_PI / 2);
 }
 
 + (float)randomCoinBirthmagnitude{
-    return coinFallingRandom(0.1, 0.1);
+    return coinFallingRandom(0.2, 0);
 }
 
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom{

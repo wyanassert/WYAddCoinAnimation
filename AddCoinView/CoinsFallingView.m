@@ -22,6 +22,7 @@
 - (instancetype)init {
     if(self = [super init]) {
         self.hasAttached = NO;
+        self.hasContacted = NO;
     }
     return self;
 }
@@ -274,14 +275,15 @@ static BOOL coinPileAppearAnimationPlayed = NO;
 
 - (void)configureGeometryInfo{
 
-    CGFloat width = CGRectGetWidth(self.bounds);
-    CGFloat height =  CGRectGetHeight(self.bounds);
-
     // calucaute geomotry and boundary
 //    CGRect birthUnitRect = [CoinFallingParameter coinBirthArea];
 //    self.coinBirthRect = CGRectApplyAffineTransform(birthUnitRect,
 //                                                    CGAffineTransformScale(CGAffineTransformIdentity, width, height));
-    self.coinBirthRect = [CoinFallingParameter coinBirthArea];
+    CGRect rect = [CoinFallingParameter coinBirthArea];
+    self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width / 3.0,
+                                    rect.origin.y + rect.size.height / 3.0,
+                                    rect.size.width / 3.0,
+                                    rect.size.height / 3.0);
     self.coinNumberLabel.frame = self.coinBirthRect;
 
     self.bouncePositionY = CGRectGetMaxY([CoinFallingParameter coinBirthArea]);
@@ -332,7 +334,7 @@ static BOOL coinPileAppearAnimationPlayed = NO;
         [self addSubview:view];
         
         [self.itemBehavior addItem:view];
-        [self.itemBehavior addAngularVelocity:[CoinFallingParameter randomAngularVelocity] forItem:view];
+//        [self.itemBehavior addAngularVelocity:[CoinFallingParameter randomAngularVelocity] forItem:view];
         
         [self.gravityBehavior addItem:view];
         [self.collisionBehavior addItem:view];
@@ -500,7 +502,7 @@ static BOOL coinPileAppearAnimationPlayed = NO;
             NSArray *items = [weakItemBehavior.items copy];
             //
             for (CoinFallingItemView *item in items) {
-                if (item.alpha > 0.9 || CGRectGetMidY(item.frame) >= CGRectGetMaxY([CoinFallingParameter coinBirthArea])) {
+                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY([CoinFallingParameter coinBirthArea])) {
                     if (CGRectGetMidY(item.frame) < [CoinFallingParameter randomStopYPositionTop:CGRectGetMinY([CoinFallingParameter coinBirthArea]) andBottom:CGRectGetMaxY([CoinFallingParameter coinBirthArea])]) {
                         [weakItemBehavior removeItem:item];
                         [weakSelf.gravityBehavior removeItem:item];
@@ -626,11 +628,5 @@ static BOOL coinPileAppearAnimationPlayed = NO;
     _shouldShowCoinsNumberLabel = shouldShowCoinsNumberLabel;
     self.coinNumberLabel.hidden = !shouldShowCoinsNumberLabel;
 }
-
-
-
-
-
-
 
 @end

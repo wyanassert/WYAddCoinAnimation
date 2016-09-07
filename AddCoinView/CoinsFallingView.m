@@ -20,7 +20,6 @@
 @property (strong, nonatomic) UIDynamicAnimator      *animator;
 @property (strong, nonatomic) UIDynamicItemBehavior  *itemBehavior;
 @property (strong, nonatomic) UIDynamicItemBehavior  *popItemBehavior;
-@property (strong, nonatomic) UISnapBehavior         *snapBehavior;
 
 @property (strong, nonatomic) NSMutableSet           *pushBehaviors;
 
@@ -145,16 +144,18 @@
 }
 
 - (void)popItem:(CoinFallingItemView *)item toSnap:(CGPoint)point {
-    if(!self.snapBehavior) {
-        [self.animator removeBehavior:self.snapBehavior];
-    }
     
     item.hasAttached = YES;
-    self.snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
-    self.snapBehavior.damping = 1;
-
+    UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
+    snapBehavior.damping = 1;
+    
+    __weak typeof(self) weakSelf = self;
+    __weak UISnapBehavior *weakSnap =  snapBehavior;
+    item.dismissAction = ^(void) {
+        [weakSelf.animator removeBehavior:weakSnap];
+    };
     [self.popItemBehavior addItem:item];
-    [self.animator addBehavior:self.snapBehavior];
+    [self.animator addBehavior:snapBehavior];
 }
 
 
@@ -178,7 +179,6 @@
 }
 
 #pragma mark - Getter
-
 - (UIDynamicAnimator *)animator {
     if (!_animator) {
          _animator = [[UIDynamicAnimator alloc]initWithReferenceView:self];
@@ -241,6 +241,7 @@
             for(CoinFallingItemView *item in array) {
                 if(CGRectContainsPoint([CoinFallingParameter coinSnapArea], item.center)) {
                     [weakPopItemBehavior removeItem:item];
+                    item.dismissAction();
                     [item removeFromSuperview];
                 }
             }

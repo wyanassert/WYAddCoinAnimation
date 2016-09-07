@@ -13,5 +13,7 @@
 @property (nonatomic, assign) BOOL  hasContacted;
 @property (nonatomic, assign) BOOL  hasAttached;
 
+@property (nonatomic, copy)   void (^dismissAction)(void);
+
 @end
 

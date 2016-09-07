@@ -64,14 +64,6 @@
     [button5 setTitle:@"100" forState:UIControlStateNormal];
     [button5 addTarget:self action:@selector(buttonAction5:) forControlEvents:UIControlEventTouchUpInside];
     
-//    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(200, 200, 100, 100)];
-//    image.animationImages = [CoinFallingParameter getAnimateImageArray];
-//    image.animationRepeatCount = 0;
-//    image.animationDuration = 1.0f;
-//    [image startAnimating];
-//    
-//    [self.view addSubview:image];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,8 +117,6 @@
             [window addSubview:self.coinsFallingView];
         }
         
-//        self.coinsFallingView.shouldShowCoinsNumberLabel = showCoinsNumber;
-//        self.coinsFallingView.shouldShowCoinsPile = showCoinsPile;
         [self.coinsFallingView addCoins:actuallyBornCoin];
         
         NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));

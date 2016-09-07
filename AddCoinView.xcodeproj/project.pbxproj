@@ -15,6 +15,10 @@
 		937903121D7EB6DB0077B0F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937903101D7EB6DB0077B0F6 /* LaunchScreen.storyboard */; };
 		9379031D1D7EB6DB0077B0F6 /* AddCoinViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379031C1D7EB6DB0077B0F6 /* AddCoinViewTests.m */; };
 		937903281D7EB6DB0077B0F6 /* AddCoinViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903271D7EB6DB0077B0F6 /* AddCoinViewUITests.m */; };
+		937903371D7EB7140077B0F6 /* AddCoinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903361D7EB7140077B0F6 /* AddCoinView.m */; };
+		9379033A1D7EB92D0077B0F6 /* SCAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903391D7EB92D0077B0F6 /* SCAudioPlayer.m */; };
+		9379033F1D7EB9700077B0F6 /* CoinFallingParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */; };
+		937903401D7EB9700077B0F6 /* CoinsFallingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,14 @@
 		937903231D7EB6DB0077B0F6 /* AddCoinViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AddCoinViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937903271D7EB6DB0077B0F6 /* AddCoinViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCoinViewUITests.m; sourceTree = "<group>"; };
 		937903291D7EB6DB0077B0F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		937903351D7EB7140077B0F6 /* AddCoinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCoinView.h; sourceTree = "<group>"; };
+		937903361D7EB7140077B0F6 /* AddCoinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCoinView.m; sourceTree = "<group>"; };
+		937903381D7EB92D0077B0F6 /* SCAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAudioPlayer.h; sourceTree = "<group>"; };
+		937903391D7EB92D0077B0F6 /* SCAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAudioPlayer.m; sourceTree = "<group>"; };
+		9379033B1D7EB9700077B0F6 /* CoinFallingParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinFallingParameter.h; sourceTree = "<group>"; };
+		9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinFallingParameter.m; sourceTree = "<group>"; };
+		9379033D1D7EB9700077B0F6 /* CoinsFallingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsFallingView.h; sourceTree = "<group>"; };
+		9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsFallingView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +117,14 @@
 				937903061D7EB6DB0077B0F6 /* AppDelegate.m */,
 				937903081D7EB6DB0077B0F6 /* ViewController.h */,
 				937903091D7EB6DB0077B0F6 /* ViewController.m */,
+				937903351D7EB7140077B0F6 /* AddCoinView.h */,
+				937903361D7EB7140077B0F6 /* AddCoinView.m */,
+				937903381D7EB92D0077B0F6 /* SCAudioPlayer.h */,
+				937903391D7EB92D0077B0F6 /* SCAudioPlayer.m */,
+				9379033B1D7EB9700077B0F6 /* CoinFallingParameter.h */,
+				9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */,
+				9379033D1D7EB9700077B0F6 /* CoinsFallingView.h */,
+				9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */,
 				9379030B1D7EB6DB0077B0F6 /* Main.storyboard */,
 				9379030E1D7EB6DB0077B0F6 /* Assets.xcassets */,
 				937903101D7EB6DB0077B0F6 /* LaunchScreen.storyboard */,
@@ -270,9 +290,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9379033F1D7EB9700077B0F6 /* CoinFallingParameter.m in Sources */,
 				9379030A1D7EB6DB0077B0F6 /* ViewController.m in Sources */,
+				937903371D7EB7140077B0F6 /* AddCoinView.m in Sources */,
 				937903071D7EB6DB0077B0F6 /* AppDelegate.m in Sources */,
+				937903401D7EB9700077B0F6 /* CoinsFallingView.m in Sources */,
 				937903041D7EB6DB0077B0F6 /* main.m in Sources */,
+				9379033A1D7EB92D0077B0F6 /* SCAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,8 +7,17 @@
 //
 
 #import "ViewController.h"
+#import "CoinsFallingView.h"
+#import "AppDelegate.h"
+#import "CoinFallingParameter.h"
 
-@interface ViewController ()
+#define Actual_Born_Coin_Number_Level1  100
+#define Actual_Born_Coin_Number_Level2  200
+#define Actual_Born_Coin_Number_Level3  400
+
+@interface ViewController () <CoinsFallingViewDelegate>
+
+@property (strong, nonatomic) CoinsFallingView          *coinsFallingView;
 
 @end
 
@@ -17,11 +26,110 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(100, 200, 100, 50)];
+    [button setBackgroundColor:[UIColor redColor]];
+    [self.view addSubview:button];
+    
+    [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+//    UIImageView *image = [[UIImageView alloc] initWithFrame:CGRectMake(200, 200, 100, 100)];
+//    image.animationImages = [CoinFallingParameter getAnimateImageArray];
+//    image.animationRepeatCount = 0;
+//    image.animationDuration = 1.0f;
+//    [image startAnimating];
+//    
+//    [self.view addSubview:image];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Private
+
+- (void)buttonAction:(UIButton *)button {
+    [self addCoins:1 showCoinsNumber:NO showCoinsPile:NO];
+}
+
+
+- (void)addCoins:(NSInteger)coinNumber showCoinsNumber:(BOOL)showCoinsNumber showCoinsPile:(BOOL)showCoinsPile{
+    if (coinNumber <= 0 ) {
+        return;
+    }
+    
+    NSInteger actuallyBornCoin = [self actuallyBornCoins:coinNumber];
+    NSLog(@"coin number:%@, ActuallyBornCoin:%@",@(coinNumber),@(actuallyBornCoin));
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.coinsFallingView willAddCoins:actuallyBornCoin];
+        
+        UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
+        if (!self.coinsFallingView.superview) {
+            // not in current window hierachy
+            NSLog(@"coin_falling_view_no_superview");
+            [window addSubview:self.coinsFallingView];
+        }
+        
+        self.coinsFallingView.shouldShowCoinsNumberLabel = showCoinsNumber;
+        self.coinsFallingView.shouldShowCoinsPile = showCoinsPile;
+        [self.coinsFallingView addCoins:actuallyBornCoin];
+        
+        NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
+        
+    });
+}
+
+- (NSInteger)actuallyBornCoins:(NSInteger)coinNumber{
+    
+    NSInteger coinNumberLevel1 = 100;
+    NSInteger coinNumberLevel2 = 200;
+    NSInteger coinNumberLevel3 = 400;
+    
+    NSInteger actualBornCoins;
+    if (coinNumber <= coinNumberLevel1) {
+        
+        actualBornCoins = coinNumber >= Actual_Born_Coin_Number_Level1 ? Actual_Born_Coin_Number_Level1 :coinNumber;
+        
+    }else if(coinNumber > coinNumberLevel1 && coinNumber <= coinNumberLevel2){
+        
+        actualBornCoins = Actual_Born_Coin_Number_Level1 + (coinNumber - coinNumberLevel1) * (Actual_Born_Coin_Number_Level2 - Actual_Born_Coin_Number_Level1) * 1.0 / (coinNumberLevel2 - coinNumberLevel1);
+        
+    }else if (coinNumber > coinNumberLevel2 && coinNumber <= coinNumberLevel3){
+        
+        actualBornCoins = Actual_Born_Coin_Number_Level2 + (coinNumber -coinNumberLevel2) * (Actual_Born_Coin_Number_Level3 - Actual_Born_Coin_Number_Level2) * 1.0 / (coinNumberLevel3 - coinNumberLevel2);
+        
+    }else{
+        
+        actualBornCoins = Actual_Born_Coin_Number_Level3;
+        
+    }
+    
+    return actualBornCoins;
+}
+
+#pragma mark - CoinsFallingViewDelegate
+
+- (void)fallingAnimationFinished{
+    
+//    [self.coinsFallingView removeFromSuperview];
+    NSLog(@"CoinsFallingManager_remove_falling_view");
+    
+}
+
+#pragma mark - Getter
+
+- (CoinsFallingView *)coinsFallingView{
+    if (!_coinsFallingView) {
+        UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
+        _coinsFallingView = [[CoinsFallingView alloc] initWithFrame:window.bounds];
+        _coinsFallingView.delegate = self;
+    }
+    return _coinsFallingView;
 }
 
 @end

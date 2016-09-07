@@ -9,7 +9,6 @@
 
 #import "CoinsFallingView.h"
 #import "CoinFallingParameter.h"
-#import "SCAudioPlayer.h"
 #import "CoinFallingItemView.h"
 #import "CoinsBirthController.h"
 
@@ -114,16 +113,6 @@
     self.bouncePositionY = CGRectGetMaxY([CoinFallingParameter coinBirthArea]);
 }
 
-- (void)playSound {
-    if ([CoinFallingParameter shouldPlaySound]) {
-        
-        [SCAudioPlayer playSoundWithFileName:@"sound_coin_harvest"
-                                  bundleName:nil
-                                      ofType:@"mp3"
-                                    andAlert:NO];
-    }
-}
-
 - (void)addCoinsToDynamics:(NSInteger)number {
     if (number <= 0 ) {
         return;
@@ -171,12 +160,6 @@
 
 #pragma mark - CoinsBirthControllerDelegate
 - (void)coinsDidBorn:(NSInteger)coinsNumber {
-    static NSTimeInterval lastSoundPlayTime = 0;
-    NSTimeInterval currentAbsoluteTime = CFAbsoluteTimeGetCurrent();
-    if (currentAbsoluteTime - lastSoundPlayTime >= 0.8) {
-        [self playSound];
-        lastSoundPlayTime = currentAbsoluteTime;
-    }
     [self addCoinsToDynamics:coinsNumber];
 }
 

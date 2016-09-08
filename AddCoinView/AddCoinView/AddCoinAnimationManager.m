@@ -19,6 +19,11 @@
 
 @implementation AddCoinAnimationManager
 
+- (void)dealloc {
+    [self.addCoinAnimationView stop];
+    [self.addCoinAnimationView removeFromSuperview];
+}
+
 - (void)addCoins:(NSInteger)coinNumber {
     if (coinNumber <= 0 ) {
         return;

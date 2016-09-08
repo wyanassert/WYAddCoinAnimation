@@ -1,13 +1,12 @@
 //
-//  CoinFallingParameter.h
-//  SnapUpload
+//  AddCoinAnimationParameter.h
 //
 //  Created by Mac on 16/5/23.
-//  Copyright © 2016年 JellyKit Inc. All rights reserved.
+//  Copyright © 2016年 wyan assert. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-@interface CoinFallingParameter : NSObject
+@interface AddCoinAnimationParameter : NSObject
 
 #pragma mark - Coin Birth
 + (float)coinBirthDuration:(NSInteger)coinNumber;

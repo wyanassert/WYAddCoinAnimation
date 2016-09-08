@@ -7,7 +7,7 @@
 //
 
 #import "CoinsBirthController.h"
-#import "CoinFallingParameter.h"
+#import "AddCoinAnimationParameter.h"
 
 @interface CoinsBirthController ()
 
@@ -40,7 +40,7 @@
     self.totalCoinsNumber = self.totalCoinsNumber + coinsNumber;
     
     self.lastCoinBornAbsoluteTime = CFAbsoluteTimeGetCurrent();
-    NSTimeInterval extraBirthDuration = [CoinFallingParameter coinBirthDuration:coinsNumber];
+    NSTimeInterval extraBirthDuration = [AddCoinAnimationParameter coinBirthDuration:coinsNumber];
     extraBirthDuration = self.coinsBornLeftTime > 0.0 ? extraBirthDuration * 0.5 : extraBirthDuration;
     self.coinsBornLeftTime = self.coinsBornLeftTime + extraBirthDuration;
     

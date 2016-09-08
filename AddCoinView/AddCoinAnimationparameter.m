@@ -1,13 +1,13 @@
 //
-//  CoinFallingParameter.m
-//  SnapUpload
+//  AddCoinAnimationParameter.m
+//  AddCoinView
 //
 //  Created by Mac on 16/5/23.
-//  Copyright © 2016年 JellyKit Inc. All rights reserved.
+//  Copyright © 2016年 wyan assert. All rights reserved.
 //
 
-#import "CoinFallingParameter.h"
-@interface CoinFallingParameter()
+#import "AddCoinAnimationParameter.h"
+@interface AddCoinAnimationParameter()
 
 @property (nonatomic, strong)   NSArray  *allFallingImages;
 @property (nonatomic, strong)   NSArray  *smallPileCGImages;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation CoinFallingParameter
+@implementation AddCoinAnimationParameter
 
 static CGFloat pileRatio = 750.0 / 170;
 
@@ -26,10 +26,10 @@ float coinFallingRandom(float min, float length){
 
 + (instancetype)sharedInstance{
     
-    static CoinFallingParameter *instance;
+    static AddCoinAnimationParameter *instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [[CoinFallingParameter alloc] init];
+        instance = [[AddCoinAnimationParameter alloc] init];
     });
     
     return instance;
@@ -94,7 +94,7 @@ float coinFallingRandom(float min, float length){
 #pragma mark - Images
 
 + (UIImage *)randomCoinFallingImage{
-    NSArray *allImages = [CoinFallingParameter sharedInstance].allFallingImages;
+    NSArray *allImages = [AddCoinAnimationParameter sharedInstance].allFallingImages;
     NSInteger imageIndex = (NSInteger)(coinFallingRandom(0, allImages.count - 1) + 0.5);
     return allImages[imageIndex];
     
@@ -102,14 +102,14 @@ float coinFallingRandom(float min, float length){
 + (NSArray *)coinPilesCGImages:(NSInteger)coinNumber{
     
     if (coinNumber <= 10) {
-        return [CoinFallingParameter sharedInstance].smallPileCGImages;
+        return [AddCoinAnimationParameter sharedInstance].smallPileCGImages;
         
     }else if (coinNumber < 100){
-        return  [CoinFallingParameter sharedInstance].mediumPileCGImages;
+        return  [AddCoinAnimationParameter sharedInstance].mediumPileCGImages;
         
     }else{
         
-        return [CoinFallingParameter sharedInstance].bigPileCGImages;
+        return [AddCoinAnimationParameter sharedInstance].bigPileCGImages;
     }
 }
 

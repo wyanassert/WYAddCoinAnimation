@@ -2,6 +2,7 @@
 //  AddCoinAnimationManager.m
 //  AddCoinView
 //
+//  AddCoinView
 //  Created by wyan assert on 9/8/16.
 //  Copyright © 2016 wyan assert. All rights reserved.
 //
@@ -9,7 +10,6 @@
 #import "AddCoinAnimationManager.h"
 #import "CoinsFallingView.h"
 #import "AppDelegate.h"
-#import "CoinFallingParameter.h"
 
 @interface AddCoinAnimationManager () <CoinsFallingViewDelegate>
 

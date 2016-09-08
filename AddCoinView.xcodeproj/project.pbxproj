@@ -15,7 +15,7 @@
 		937903121D7EB6DB0077B0F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937903101D7EB6DB0077B0F6 /* LaunchScreen.storyboard */; };
 		9379031D1D7EB6DB0077B0F6 /* AddCoinViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379031C1D7EB6DB0077B0F6 /* AddCoinViewTests.m */; };
 		937903281D7EB6DB0077B0F6 /* AddCoinViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903271D7EB6DB0077B0F6 /* AddCoinViewUITests.m */; };
-		9379033F1D7EB9700077B0F6 /* CoinFallingParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */; };
+		9379033F1D7EB9700077B0F6 /* AddCoinAnimationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033C1D7EB9700077B0F6 /* AddCoinAnimationParameter.m */; };
 		937903401D7EB9700077B0F6 /* CoinsFallingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */; };
 		937903431D8037B50077B0F6 /* CoinFallingItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903421D8037B50077B0F6 /* CoinFallingItemView.m */; };
 		9389EF341D8038DE0035616D /* CoinsBirthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF331D8038DE0035616D /* CoinsBirthController.m */; };
@@ -56,8 +56,8 @@
 		937903231D7EB6DB0077B0F6 /* AddCoinViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AddCoinViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937903271D7EB6DB0077B0F6 /* AddCoinViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCoinViewUITests.m; sourceTree = "<group>"; };
 		937903291D7EB6DB0077B0F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9379033B1D7EB9700077B0F6 /* CoinFallingParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinFallingParameter.h; sourceTree = "<group>"; };
-		9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinFallingParameter.m; sourceTree = "<group>"; };
+		9379033B1D7EB9700077B0F6 /* AddCoinAnimationParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCoinAnimationParameter.h; sourceTree = "<group>"; };
+		9379033C1D7EB9700077B0F6 /* AddCoinAnimationParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCoinAnimationParameter.m; sourceTree = "<group>"; };
 		9379033D1D7EB9700077B0F6 /* CoinsFallingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsFallingView.h; sourceTree = "<group>"; };
 		9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsFallingView.m; sourceTree = "<group>"; };
 		937903411D8037B50077B0F6 /* CoinFallingItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinFallingItemView.h; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 				937903091D7EB6DB0077B0F6 /* ViewController.m */,
 				9389EF351D810A310035616D /* AddCoinAnimationManager.h */,
 				9389EF361D810A310035616D /* AddCoinAnimationManager.m */,
-				9379033B1D7EB9700077B0F6 /* CoinFallingParameter.h */,
-				9379033C1D7EB9700077B0F6 /* CoinFallingParameter.m */,
+				9379033B1D7EB9700077B0F6 /* AddCoinAnimationParameter.h */,
+				9379033C1D7EB9700077B0F6 /* AddCoinAnimationParameter.m */,
 				9379033D1D7EB9700077B0F6 /* CoinsFallingView.h */,
 				9379033E1D7EB9700077B0F6 /* CoinsFallingView.m */,
 				9389EF321D8038DE0035616D /* CoinsBirthController.h */,
@@ -295,7 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9379033F1D7EB9700077B0F6 /* CoinFallingParameter.m in Sources */,
+				9379033F1D7EB9700077B0F6 /* AddCoinAnimationParameter.m in Sources */,
 				9389EF371D810A310035616D /* AddCoinAnimationManager.m in Sources */,
 				9379030A1D7EB6DB0077B0F6 /* ViewController.m in Sources */,
 				9389EF341D8038DE0035616D /* CoinsBirthController.m in Sources */,

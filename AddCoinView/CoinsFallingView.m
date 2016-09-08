@@ -8,7 +8,7 @@
 
 
 #import "CoinsFallingView.h"
-#import "CoinFallingParameter.h"
+#import "AddCoinAnimationParameter.h"
 #import "CoinFallingItemView.h"
 #import "CoinsBirthController.h"
 
@@ -108,13 +108,13 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
 #pragma mark - Private
 - (void)configureGeometryInfo {
-    CGRect rect = [CoinFallingParameter coinBirthArea];
+    CGRect rect = [AddCoinAnimationParameter coinBirthArea];
     self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width / 3.0,
                                     rect.origin.y + rect.size.height / 3.0,
                                     rect.size.width / 3.0,
                                     rect.size.height / 3.0);
 
-    self.bouncePositionY = CGRectGetMaxY([CoinFallingParameter coinBirthArea]);
+    self.bouncePositionY = CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea]);
 }
 
 - (void)addCoinsToDynamics:(NSInteger)number {
@@ -124,13 +124,13 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     // add new coin to dynamic system
     for (NSInteger index = 0; index < number; index ++) {
         CoinFallingItemView *view = [[CoinFallingItemView alloc]init];
-        view.animationImages = [CoinFallingParameter getAnimateImageArray];
+        view.animationImages = [AddCoinAnimationParameter getAnimateImageArray];
         view.animationDuration = 0.5f;
         view.animationRepeatCount = 0;
         [view startAnimating];
         
-        CGSize size = [CoinFallingParameter randomCoinSize];
-        CGPoint center = [CoinFallingParameter randomPointInRect:self.coinBirthRect];
+        CGSize size = [AddCoinAnimationParameter randomCoinSize];
+        CGPoint center = [AddCoinAnimationParameter randomPointInRect:self.coinBirthRect];
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
 
@@ -141,7 +141,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         
         // give each a up instant push with random angle
         UIPushBehavior *pushBehavior = [[UIPushBehavior alloc]initWithItems:@[view] mode:UIPushBehaviorModeInstantaneous];
-        [pushBehavior setAngle: [CoinFallingParameter randomCoinBirthAngle] magnitude:[CoinFallingParameter randomCoinBirthmagnitude]];
+        [pushBehavior setAngle: [AddCoinAnimationParameter randomCoinBirthAngle] magnitude:[AddCoinAnimationParameter randomCoinBirthmagnitude]];
         [self.animator addBehavior:pushBehavior];
         [self.pushBehaviors addObject:pushBehavior];
     }
@@ -159,7 +159,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
                 if(0 >= number) {
                     break;
                 }
-                CGRect endRect  = [CoinFallingParameter coinSnapArea];
+                CGRect endRect  = [AddCoinAnimationParameter coinSnapArea];
                 [self popItem:item toSnap:CGPointMake(CGRectGetMidX(endRect), CGRectGetMidY(endRect))];
                 number--;
             }
@@ -222,7 +222,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         _itemBehavior = [[UIDynamicItemBehavior alloc]init];
         _itemBehavior.allowsRotation = YES;
         _itemBehavior.density = 0.7;
-        _itemBehavior.elasticity = [CoinFallingParameter coinElasticity];
+        _itemBehavior.elasticity = [AddCoinAnimationParameter coinElasticity];
 
         __weak UIDynamicItemBehavior *weakItemBehavior = _itemBehavior;
         __weak typeof(self) weakSelf = self;
@@ -235,8 +235,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             NSArray *items = [weakItemBehavior.items copy];
             //
             for (CoinFallingItemView *item in items) {
-                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY([CoinFallingParameter coinBirthArea])) {
-                    if (CGRectGetMidY(item.frame) < [CoinFallingParameter randomStopYPositionTop:CGRectGetMinY([CoinFallingParameter coinBirthArea]) andBottom:CGRectGetMaxY([CoinFallingParameter coinBirthArea])]) {
+                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea])) {
+                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY([AddCoinAnimationParameter coinBirthArea]) andBottom:CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea])]) {
                         [weakItemBehavior removeItem:item];
                     }
                 } else {
@@ -267,7 +267,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             }
             NSArray *array = [weakPopItemBehavior.items copy];
             for(CoinFallingItemView *item in array) {
-                if(CGRectContainsPoint([CoinFallingParameter coinSnapArea], item.center)) {
+                if(CGRectContainsPoint([AddCoinAnimationParameter coinSnapArea], item.center)) {
                     [weakPopItemBehavior removeItem:item];
                     item.dismissAction();
                     [item removeFromSuperview];

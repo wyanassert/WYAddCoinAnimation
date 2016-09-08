@@ -285,7 +285,9 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             for(CoinAnimationItemView *item in array) {
                 if(weakSelf.snapRect.size.width <= 0 || CGRectContainsPoint(weakSelf.snapRect, item.center)) {
                     [weakPopItemBehavior removeItem:item];
-                    item.dismissAction();
+                    if(item.dismissAction) {
+                        item.dismissAction();
+                    }
                     [item removeFromSuperview];
                 }
             }

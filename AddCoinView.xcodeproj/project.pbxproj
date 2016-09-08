@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		93176A411D815AA200CE9E4E /* PrensentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93176A401D815AA200CE9E4E /* PrensentViewController.m */; };
+		93176A411D815AA200CE9E4E /* PresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93176A401D815AA200CE9E4E /* PresentViewController.m */; };
 		937903041D7EB6DB0077B0F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903031D7EB6DB0077B0F6 /* main.m */; };
 		937903071D7EB6DB0077B0F6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903061D7EB6DB0077B0F6 /* AppDelegate.m */; };
 		9379030A1D7EB6DB0077B0F6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903091D7EB6DB0077B0F6 /* ViewController.m */; };
@@ -41,8 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		93176A3F1D815AA200CE9E4E /* PrensentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrensentViewController.h; sourceTree = "<group>"; };
-		93176A401D815AA200CE9E4E /* PrensentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrensentViewController.m; sourceTree = "<group>"; };
+		93176A3F1D815AA200CE9E4E /* PresentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentViewController.h; sourceTree = "<group>"; };
+		93176A401D815AA200CE9E4E /* PresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentViewController.m; sourceTree = "<group>"; };
 		937902FF1D7EB6DB0077B0F6 /* AddCoinView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddCoinView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		937903031D7EB6DB0077B0F6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		937903051D7EB6DB0077B0F6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -123,8 +123,8 @@
 				937903061D7EB6DB0077B0F6 /* AppDelegate.m */,
 				937903081D7EB6DB0077B0F6 /* ViewController.h */,
 				937903091D7EB6DB0077B0F6 /* ViewController.m */,
-				93176A3F1D815AA200CE9E4E /* PrensentViewController.h */,
-				93176A401D815AA200CE9E4E /* PrensentViewController.m */,
+				93176A3F1D815AA200CE9E4E /* PresentViewController.h */,
+				93176A401D815AA200CE9E4E /* PresentViewController.m */,
 				9389EF411D814DDB0035616D /* AddCoinView */,
 				9379030B1D7EB6DB0077B0F6 /* Main.storyboard */,
 				9379030E1D7EB6DB0077B0F6 /* Assets.xcassets */,
@@ -308,7 +308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93176A411D815AA200CE9E4E /* PrensentViewController.m in Sources */,
+				93176A411D815AA200CE9E4E /* PresentViewController.m in Sources */,
 				9379030A1D7EB6DB0077B0F6 /* ViewController.m in Sources */,
 				9389EF4F1D814E240035616D /* CoinAnimationItemView.m in Sources */,
 				9389EF4C1D814E240035616D /* AddCoinAnimationManager.m in Sources */,

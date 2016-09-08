@@ -15,11 +15,11 @@
 		937903121D7EB6DB0077B0F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937903101D7EB6DB0077B0F6 /* LaunchScreen.storyboard */; };
 		9379031D1D7EB6DB0077B0F6 /* AddCoinViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379031C1D7EB6DB0077B0F6 /* AddCoinViewTests.m */; };
 		937903281D7EB6DB0077B0F6 /* AddCoinViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903271D7EB6DB0077B0F6 /* AddCoinViewUITests.m */; };
-		9379033F1D7EB9700077B0F6 /* AddCoinAnimationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9379033C1D7EB9700077B0F6 /* AddCoinAnimationParameter.m */; };
-		937903431D8037B50077B0F6 /* CoinAnimationItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 937903421D8037B50077B0F6 /* CoinAnimationItemView.m */; };
-		9389EF341D8038DE0035616D /* CoinsAmimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF331D8038DE0035616D /* CoinsAmimationController.m */; };
-		9389EF371D810A310035616D /* AddCoinAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF361D810A310035616D /* AddCoinAnimationManager.m */; };
-		9389EF401D81127E0035616D /* AddCoinAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF3F1D81127D0035616D /* AddCoinAnimationView.m */; };
+		9389EF4C1D814E240035616D /* AddCoinAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF431D814E240035616D /* AddCoinAnimationManager.m */; };
+		9389EF4D1D814E240035616D /* AddCoinAnimationParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF451D814E240035616D /* AddCoinAnimationParameter.m */; };
+		9389EF4E1D814E240035616D /* AddCoinAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF471D814E240035616D /* AddCoinAnimationView.m */; };
+		9389EF4F1D814E240035616D /* CoinAnimationItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF491D814E240035616D /* CoinAnimationItemView.m */; };
+		9389EF501D814E240035616D /* CoinsAmimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9389EF4B1D814E240035616D /* CoinsAmimationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,16 +56,16 @@
 		937903231D7EB6DB0077B0F6 /* AddCoinViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AddCoinViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		937903271D7EB6DB0077B0F6 /* AddCoinViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddCoinViewUITests.m; sourceTree = "<group>"; };
 		937903291D7EB6DB0077B0F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9379033B1D7EB9700077B0F6 /* AddCoinAnimationParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCoinAnimationParameter.h; path = ../AddCoinAnimationParameter.h; sourceTree = "<group>"; };
-		9379033C1D7EB9700077B0F6 /* AddCoinAnimationParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCoinAnimationParameter.m; path = ../AddCoinAnimationParameter.m; sourceTree = "<group>"; };
-		937903411D8037B50077B0F6 /* CoinAnimationItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoinAnimationItemView.h; path = ../CoinAnimationItemView.h; sourceTree = "<group>"; };
-		937903421D8037B50077B0F6 /* CoinAnimationItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoinAnimationItemView.m; path = ../CoinAnimationItemView.m; sourceTree = "<group>"; };
-		9389EF321D8038DE0035616D /* CoinsAmimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoinsAmimationController.h; path = ../CoinsAmimationController.h; sourceTree = "<group>"; };
-		9389EF331D8038DE0035616D /* CoinsAmimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoinsAmimationController.m; path = ../CoinsAmimationController.m; sourceTree = "<group>"; };
-		9389EF351D810A310035616D /* AddCoinAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCoinAnimationManager.h; path = ../AddCoinAnimationManager.h; sourceTree = "<group>"; };
-		9389EF361D810A310035616D /* AddCoinAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCoinAnimationManager.m; path = ../AddCoinAnimationManager.m; sourceTree = "<group>"; };
-		9389EF3E1D81127D0035616D /* AddCoinAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddCoinAnimationView.h; path = ../AddCoinAnimationView.h; sourceTree = "<group>"; };
-		9389EF3F1D81127D0035616D /* AddCoinAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddCoinAnimationView.m; path = ../AddCoinAnimationView.m; sourceTree = "<group>"; };
+		9389EF421D814E240035616D /* AddCoinAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCoinAnimationManager.h; sourceTree = "<group>"; };
+		9389EF431D814E240035616D /* AddCoinAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCoinAnimationManager.m; sourceTree = "<group>"; };
+		9389EF441D814E240035616D /* AddCoinAnimationParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCoinAnimationParameter.h; sourceTree = "<group>"; };
+		9389EF451D814E240035616D /* AddCoinAnimationParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCoinAnimationParameter.m; sourceTree = "<group>"; };
+		9389EF461D814E240035616D /* AddCoinAnimationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCoinAnimationView.h; sourceTree = "<group>"; };
+		9389EF471D814E240035616D /* AddCoinAnimationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCoinAnimationView.m; sourceTree = "<group>"; };
+		9389EF481D814E240035616D /* CoinAnimationItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinAnimationItemView.h; sourceTree = "<group>"; };
+		9389EF491D814E240035616D /* CoinAnimationItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinAnimationItemView.m; sourceTree = "<group>"; };
+		9389EF4A1D814E240035616D /* CoinsAmimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsAmimationController.h; sourceTree = "<group>"; };
+		9389EF4B1D814E240035616D /* CoinsAmimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsAmimationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,16 +159,16 @@
 		9389EF411D814DDB0035616D /* AddCoinView */ = {
 			isa = PBXGroup;
 			children = (
-				9389EF351D810A310035616D /* AddCoinAnimationManager.h */,
-				9389EF361D810A310035616D /* AddCoinAnimationManager.m */,
-				9379033B1D7EB9700077B0F6 /* AddCoinAnimationParameter.h */,
-				9379033C1D7EB9700077B0F6 /* AddCoinAnimationParameter.m */,
-				9389EF3E1D81127D0035616D /* AddCoinAnimationView.h */,
-				9389EF3F1D81127D0035616D /* AddCoinAnimationView.m */,
-				9389EF321D8038DE0035616D /* CoinsAmimationController.h */,
-				9389EF331D8038DE0035616D /* CoinsAmimationController.m */,
-				937903411D8037B50077B0F6 /* CoinAnimationItemView.h */,
-				937903421D8037B50077B0F6 /* CoinAnimationItemView.m */,
+				9389EF421D814E240035616D /* AddCoinAnimationManager.h */,
+				9389EF431D814E240035616D /* AddCoinAnimationManager.m */,
+				9389EF441D814E240035616D /* AddCoinAnimationParameter.h */,
+				9389EF451D814E240035616D /* AddCoinAnimationParameter.m */,
+				9389EF461D814E240035616D /* AddCoinAnimationView.h */,
+				9389EF471D814E240035616D /* AddCoinAnimationView.m */,
+				9389EF481D814E240035616D /* CoinAnimationItemView.h */,
+				9389EF491D814E240035616D /* CoinAnimationItemView.m */,
+				9389EF4A1D814E240035616D /* CoinsAmimationController.h */,
+				9389EF4B1D814E240035616D /* CoinsAmimationController.m */,
 			);
 			path = AddCoinView;
 			sourceTree = "<group>";
@@ -303,12 +303,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9379033F1D7EB9700077B0F6 /* AddCoinAnimationParameter.m in Sources */,
-				9389EF371D810A310035616D /* AddCoinAnimationManager.m in Sources */,
 				9379030A1D7EB6DB0077B0F6 /* ViewController.m in Sources */,
-				9389EF341D8038DE0035616D /* CoinsAmimationController.m in Sources */,
-				937903431D8037B50077B0F6 /* CoinAnimationItemView.m in Sources */,
-				9389EF401D81127E0035616D /* AddCoinAnimationView.m in Sources */,
+				9389EF4F1D814E240035616D /* CoinAnimationItemView.m in Sources */,
+				9389EF4C1D814E240035616D /* AddCoinAnimationManager.m in Sources */,
+				9389EF4D1D814E240035616D /* AddCoinAnimationParameter.m in Sources */,
+				9389EF4E1D814E240035616D /* AddCoinAnimationView.m in Sources */,
+				9389EF501D814E240035616D /* CoinsAmimationController.m in Sources */,
 				937903071D7EB6DB0077B0F6 /* AppDelegate.m in Sources */,
 				937903041D7EB6DB0077B0F6 /* main.m in Sources */,
 			);

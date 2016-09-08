@@ -1,21 +1,20 @@
 //
-//  CoinsFallingView.m
-//  UIDynamicsDemo
+//  AddCoinAnimationView.m
+//  AddCoinView
 //
-//  Created by Amay on 5/22/16.
-//  Copyright © 2016年 JellyKit Inc. All rights reserved.
+//  Created by wyan assert on 9/8/16.
+//  Copyright © 2016 wyan assert. All rights reserved.
 //
 
-
-#import "CoinsFallingView.h"
+#import "AddCoinAnimationView.h"
 #import "AddCoinAnimationParameter.h"
-#import "CoinFallingItemView.h"
-#import "CoinsBirthController.h"
+#import "CoinAnimationItemView.h"
+#import "CoinsAmimationController.h"
 
 static NSString *CoinPopControllerIdentifer = @"CoinPopControllerIdentifer";
 static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
-@interface CoinsFallingView()<UICollisionBehaviorDelegate,UIDynamicAnimatorDelegate,CoinsBirthControllerDelegate>
+@interface AddCoinAnimationView () <UIDynamicAnimatorDelegate, CoinsAnimationControllerDelegate>
 
 @property (assign, nonatomic) CGRect                  coinBirthRect;
 @property (assign, nonatomic) CGFloat                 bouncePositionY;
@@ -26,12 +25,12 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
 @property (strong, nonatomic) NSMutableSet           *pushBehaviors;
 
-@property (strong, nonatomic) CoinsBirthController   *coinBirthController;
-@property (strong, nonatomic) CoinsBirthController   *coinPopController;
+@property (strong, nonatomic) CoinsAmimationController   *coinBirthController;
+@property (strong, nonatomic) CoinsAmimationController   *coinPopController;
 
 @end
 
-@implementation CoinsFallingView
+@implementation AddCoinAnimationView
 
 #pragma  mark - Init
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -56,9 +55,9 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 -(void)configure {
     self.userInteractionEnabled = NO;
     self.backgroundColor = [UIColor clearColor];
-
+    
     [self configureGeometryInfo];
-
+    
 }
 
 #pragma mark - Public
@@ -113,7 +112,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
                                     rect.origin.y + rect.size.height / 3.0,
                                     rect.size.width / 3.0,
                                     rect.size.height / 3.0);
-
+    
     self.bouncePositionY = CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea]);
 }
 
@@ -123,7 +122,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
     // add new coin to dynamic system
     for (NSInteger index = 0; index < number; index ++) {
-        CoinFallingItemView *view = [[CoinFallingItemView alloc]init];
+        CoinAnimationItemView *view = [[CoinAnimationItemView alloc]init];
         view.animationImages = [AddCoinAnimationParameter getAnimateImageArray];
         view.animationDuration = 0.5f;
         view.animationRepeatCount = 0;
@@ -133,7 +132,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         CGPoint center = [AddCoinAnimationParameter randomPointInRect:self.coinBirthRect];
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
-
+        
         view.alpha = 0.1;
         [self addSubview:view];
         
@@ -153,8 +152,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         return ;
     }
     for(UIView *view in self.subviews) {
-        if([view isKindOfClass:[CoinFallingItemView class]]) {
-            CoinFallingItemView *item = (CoinFallingItemView *)view;
+        if([view isKindOfClass:[CoinAnimationItemView class]]) {
+            CoinAnimationItemView *item = (CoinAnimationItemView *)view;
             if(!item.hasAttached) {
                 if(0 >= number) {
                     break;
@@ -167,7 +166,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
 }
 
-- (void)popItem:(CoinFallingItemView *)item toSnap:(CGPoint)point {
+- (void)popItem:(CoinAnimationItemView *)item toSnap:(CGPoint)point {
     
     item.hasAttached = YES;
     UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
@@ -193,7 +192,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 }
 
 - (void)coinBornDidFinishedWithCnntrollerIdentify:(NSString *)identifer{
-   
+    
 }
 
 
@@ -209,7 +208,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 #pragma mark - Getter
 - (UIDynamicAnimator *)animator {
     if (!_animator) {
-         _animator = [[UIDynamicAnimator alloc]initWithReferenceView:self];
+        _animator = [[UIDynamicAnimator alloc]initWithReferenceView:self];
         _animator.delegate = self;
         [_animator addBehavior:self.itemBehavior];
         [_animator addBehavior:self.popItemBehavior];
@@ -223,7 +222,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         _itemBehavior.allowsRotation = YES;
         _itemBehavior.density = 0.7;
         _itemBehavior.elasticity = [AddCoinAnimationParameter coinElasticity];
-
+        
         __weak UIDynamicItemBehavior *weakItemBehavior = _itemBehavior;
         __weak typeof(self) weakSelf = self;
         weakItemBehavior.action = ^() {
@@ -234,7 +233,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             // fade in when born and fade out when collision
             NSArray *items = [weakItemBehavior.items copy];
             //
-            for (CoinFallingItemView *item in items) {
+            for (CoinAnimationItemView *item in items) {
                 if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea])) {
                     if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY([AddCoinAnimationParameter coinBirthArea]) andBottom:CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea])]) {
                         [weakItemBehavior removeItem:item];
@@ -249,7 +248,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             }
             [weakSelf.pushBehaviors removeAllObjects];
         };
-
+        
     }
     return _itemBehavior;
 }
@@ -266,7 +265,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
                 return ;
             }
             NSArray *array = [weakPopItemBehavior.items copy];
-            for(CoinFallingItemView *item in array) {
+            for(CoinAnimationItemView *item in array) {
                 if(CGRectContainsPoint([AddCoinAnimationParameter coinSnapArea], item.center)) {
                     [weakPopItemBehavior removeItem:item];
                     item.dismissAction();
@@ -286,17 +285,17 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     return _pushBehaviors;
 }
 
-- (CoinsBirthController *)coinBirthController {
+- (CoinsAmimationController *)coinBirthController {
     if (!_coinBirthController) {
-        _coinBirthController = [[CoinsBirthController alloc] initWithIdentifier:CoinBornControllerIdentifer];
+        _coinBirthController = [[CoinsAmimationController alloc] initWithIdentifier:CoinBornControllerIdentifer];
         _coinBirthController.delegate = self;
     }
     return _coinBirthController;
 }
 
-- (CoinsBirthController *)coinPopController {
+- (CoinsAmimationController *)coinPopController {
     if(!_coinPopController) {
-        _coinPopController = [[CoinsBirthController alloc] initWithIdentifier:CoinPopControllerIdentifer];
+        _coinPopController = [[CoinsAmimationController alloc] initWithIdentifier:CoinPopControllerIdentifer];
         _coinPopController.delegate = self;
     }
     return _coinPopController;

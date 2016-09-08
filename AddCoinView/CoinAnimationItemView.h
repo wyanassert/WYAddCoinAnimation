@@ -1,5 +1,5 @@
 //
-//  CoinFallingItemView.h
+//  CoinAnimationItemView.h
 //  AddCoinView
 //
 //  Created by wyan assert on 9/7/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CoinFallingItemView : UIImageView
+@interface CoinAnimationItemView : UIImageView
 
 @property (nonatomic, assign) BOOL  hasContacted;
 @property (nonatomic, assign) BOOL  hasAttached;

@@ -8,12 +8,12 @@
 //
 
 #import "AddCoinAnimationManager.h"
-#import "CoinsFallingView.h"
+#import "AddCoinAnimationView.h"
 #import "AppDelegate.h"
 
-@interface AddCoinAnimationManager () <CoinsFallingViewDelegate>
+@interface AddCoinAnimationManager () <AddCoinAnimationViewDelegate>
 
-@property (strong, nonatomic) CoinsFallingView          *coinsFallingView;
+@property (strong, nonatomic) AddCoinAnimationView  *addCoinAnimationView;
 
 @end
 
@@ -29,16 +29,16 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self.coinsFallingView willAddCoins:actuallyBornCoin];
+        [self.addCoinAnimationView willAddCoins:actuallyBornCoin];
         
         UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
-        if (!self.coinsFallingView.superview) {
+        if (!self.addCoinAnimationView.superview) {
             
             NSLog(@"coin_falling_view_no_superview");
-            [window addSubview:self.coinsFallingView];
+            [window addSubview:self.addCoinAnimationView];
         }
         
-        [self.coinsFallingView addCoins:actuallyBornCoin];
+        [self.addCoinAnimationView addCoins:actuallyBornCoin];
         
         NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
         
@@ -55,9 +55,9 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        [self.coinsFallingView willConfirmCoinAdded:actuallyBornCoin];
+        [self.addCoinAnimationView willConfirmCoinAdded:actuallyBornCoin];
         
-        [self.coinsFallingView confirmCoinAdded:actuallyBornCoin];
+        [self.addCoinAnimationView confirmCoinAdded:actuallyBornCoin];
         
         NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
         
@@ -76,13 +76,13 @@
 
 #pragma mark - Getter
 
-- (CoinsFallingView *)coinsFallingView{
-    if (!_coinsFallingView) {
+- (AddCoinAnimationView *)addCoinAnimationView {
+    if (!_addCoinAnimationView) {
         UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
-        _coinsFallingView = [[CoinsFallingView alloc] initWithFrame:window.bounds];
-        _coinsFallingView.delegate = self;
+        _addCoinAnimationView = [[AddCoinAnimationView alloc] initWithFrame:window.bounds];
+        _addCoinAnimationView.delegate = self;
     }
-    return _coinsFallingView;
+    return _addCoinAnimationView;
 }
 
 @end

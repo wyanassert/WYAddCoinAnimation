@@ -1,14 +1,14 @@
 //
-//  CoinFallingItemView.m
+//  CoinAnimationItemView.m
 //  AddCoinView
 //
 //  Created by wyan assert on 9/7/16.
 //  Copyright © 2016 wyan assert. All rights reserved.
 //
 
-#import "CoinFallingItemView.h"
+#import "CoinAnimationItemView.h"
 
-@implementation CoinFallingItemView
+@implementation CoinAnimationItemView
 
 - (instancetype)init {
     if(self = [super init]) {

@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol CoinsBirthControllerDelegate;
+@protocol CoinsAnimationControllerDelegate;
 
-@interface CoinsBirthController : NSObject
+@interface CoinsAmimationController : NSObject
 
 @property (nonatomic, assign) NSInteger                         totalCoinsNumber;
 @property (nonatomic, assign) NSInteger                         notBornCoinsNumer;
 @property (nonatomic, assign) NSInteger                         totalBornCoinsNumber;
 
-@property (weak, nonatomic  ) id<CoinsBirthControllerDelegate>  delegate;
+@property (weak, nonatomic  ) id<CoinsAnimationControllerDelegate>  delegate;
 
 - (instancetype)initWithIdentifier:(NSString *)identifer;
 
@@ -27,7 +27,7 @@
 @end
 
 
-@protocol CoinsBirthControllerDelegate <NSObject>
+@protocol CoinsAnimationControllerDelegate <NSObject>
 
 - (void)coinsDidBorn:(NSInteger)coinsNumber withCnntrollerIdentify:(NSString *)identifer;
 - (void)coinBornDidFinishedWithCnntrollerIdentify:(NSString *)identifer;

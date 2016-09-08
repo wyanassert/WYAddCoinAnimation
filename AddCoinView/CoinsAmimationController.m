@@ -6,10 +6,10 @@
 //  Copyright © 2016 wyan assert. All rights reserved.
 //
 
-#import "CoinsBirthController.h"
+#import "CoinsAmimationController.h"
 #import "AddCoinAnimationParameter.h"
 
-@interface CoinsBirthController ()
+@interface CoinsAmimationController ()
 
 @property (nonatomic, strong, readonly) NSString        *identifer;
 @property (nonatomic, strong          ) CADisplayLink   *displayLink;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation CoinsBirthController
+@implementation CoinsAmimationController
 
 @synthesize identifer = _identifer;
 

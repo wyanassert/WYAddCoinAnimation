@@ -109,13 +109,13 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
 #pragma mark - Private
 - (void)configureGeometryInfo {
-    CGRect rect = [AddCoinAnimationParameter coinBirthArea];
+    CGRect rect = self.displayRect;
     self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width / 3.0,
                                     rect.origin.y + rect.size.height / 3.0,
                                     rect.size.width / 3.0,
                                     rect.size.height / 3.0);
     
-    self.bouncePositionY = CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea]);
+    self.bouncePositionY = CGRectGetMaxY(rect);
 }
 
 - (void)addCoinsToDynamics:(NSInteger)number {
@@ -160,7 +160,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
                 if(0 >= number) {
                     break;
                 }
-                CGRect endRect  = [AddCoinAnimationParameter coinSnapArea];
+                CGRect endRect  = self.snapRect;
                 [self popItem:item toSnap:CGPointMake(CGRectGetMidX(endRect), CGRectGetMidY(endRect))];
                 number--;
             }
@@ -237,8 +237,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             NSArray *items = [weakItemBehavior.items copy];
             //
             for (CoinAnimationItemView *item in items) {
-                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea])) {
-                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY([AddCoinAnimationParameter coinBirthArea]) andBottom:CGRectGetMaxY([AddCoinAnimationParameter coinBirthArea])]) {
+                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
+                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
                         [weakItemBehavior removeItem:item];
                     }
                 } else {
@@ -269,7 +269,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             }
             NSArray *array = [weakPopItemBehavior.items copy];
             for(CoinAnimationItemView *item in array) {
-                if(CGRectContainsPoint([AddCoinAnimationParameter coinSnapArea], item.center)) {
+                if(weakSelf.snapRect.size.width <= 0 || CGRectContainsPoint(weakSelf.snapRect, item.center)) {
                     [weakPopItemBehavior removeItem:item];
                     item.dismissAction();
                     [item removeFromSuperview];
@@ -302,6 +302,12 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         _coinPopController.delegate = self;
     }
     return _coinPopController;
+}
+
+#pragma mark - Setter
+- (void)setDisplayRect:(CGRect)displayRect {
+    _displayRect = displayRect;
+    [self configureGeometryInfo];
 }
 
 @end

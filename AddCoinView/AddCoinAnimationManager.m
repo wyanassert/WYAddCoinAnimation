@@ -85,4 +85,16 @@
     return _addCoinAnimationView;
 }
 
+#pragma mark - Setter
+
+- (void)setSnapRect:(CGRect)rect {
+    _snapRect = rect;
+    self.addCoinAnimationView.snapRect = rect;
+}
+
+- (void)setDisplayRect:(CGRect)rect {
+    _displayRect = rect;
+    self.addCoinAnimationView.displayRect = rect;
+}
+
 @end

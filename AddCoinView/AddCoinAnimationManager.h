@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface AddCoinAnimationManager : NSObject
 
 - (void)addCoins:(NSInteger)coinNumber;
-
 - (void)popCoins:(NSInteger)coinNumber;
+
+@property (nonatomic, assign) CGRect snapRect;
+@property (nonatomic, assign) CGRect displayRect;
 
 @end

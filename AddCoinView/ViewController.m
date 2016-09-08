@@ -97,6 +97,8 @@
 - (AddCoinAnimationManager *)addCoinAnimationManager {
     if(!_addCoinAnimationManager) {
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
+        _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
+        _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
     }
     return _addCoinAnimationManager;
 }

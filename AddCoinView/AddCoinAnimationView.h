@@ -16,6 +16,9 @@
 
 @interface AddCoinAnimationView : UIView
 
+@property (nonatomic, assign) CGRect snapRect;
+@property (nonatomic, assign) CGRect displayRect;
+
 @property (nonatomic, weak) id<AddCoinAnimationViewDelegate> delegate;
 
 - (void)willAddCoins:(NSInteger)coinsNumbers;

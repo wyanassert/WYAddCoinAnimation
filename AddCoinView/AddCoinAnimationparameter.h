@@ -16,22 +16,15 @@
 
 #pragma mark - UIDynamics
 + (float)coinElasticity;
-+ (float)gravityMagnitude;
 + (CGFloat)coinBouncePosition; // between 0 - 1.0
-+ (float)randomAngularVelocity;
 + (float)randomCoinBirthAngle;
 + (float)randomCoinBirthmagnitude;
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom;
 
 #pragma mark - Images
-+ (UIImage *)randomCoinFallingImage;
-+ (NSArray *)coinPilesCGImages:(NSInteger)coinNumber;
 + (NSArray *)getAnimateImageArray;
 
 #pragma mark - Other
-+ (NSArray *)coinPileKeyTimes:(NSInteger)coinNumber;
 + (CGPoint)randomPointInRect:(CGRect)rect;
-+ (BOOL)shouldPlaySound;
-+ (CGSize)coinPileSize;
 
 @end

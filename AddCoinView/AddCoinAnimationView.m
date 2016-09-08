@@ -16,17 +16,17 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
 @interface AddCoinAnimationView () <UIDynamicAnimatorDelegate, CoinsAnimationControllerDelegate>
 
-@property (assign, nonatomic) CGRect                  coinBirthRect;
-@property (assign, nonatomic) CGFloat                 bouncePositionY;
+@property (assign, nonatomic) CGRect                     coinBirthRect;
+@property (assign, nonatomic) CGFloat                    bouncePositionY;
 
-@property (strong, nonatomic) UIDynamicAnimator      *animator;
-@property (strong, nonatomic) UIDynamicItemBehavior  *itemBehavior;
-@property (strong, nonatomic) UIDynamicItemBehavior  *popItemBehavior;
+@property (strong, nonatomic) UIDynamicAnimator         *animator;
+@property (strong, nonatomic) UIDynamicItemBehavior     *itemBehavior;
+@property (strong, nonatomic) UIDynamicItemBehavior     *popItemBehavior;
 
-@property (strong, nonatomic) NSMutableSet           *pushBehaviors;
+@property (strong, nonatomic) NSMutableSet              *pushBehaviors;
 
-@property (strong, nonatomic) CoinsAmimationController   *coinBirthController;
-@property (strong, nonatomic) CoinsAmimationController   *coinPopController;
+@property (strong, nonatomic) CoinsAmimationController  *coinBirthController;
+@property (strong, nonatomic) CoinsAmimationController  *coinPopController;
 
 @end
 
@@ -41,8 +41,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     return self;
 }
 
-#pragma mark - LifeCycle
 
+#pragma mark - LifeCycle
 - (void)layoutSubviews {
     [self configureGeometryInfo];
 }
@@ -50,6 +50,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 - (void)removeFromSuperview {
     [super removeFromSuperview];
 }
+
 
 #pragma mark - Configure
 -(void)configure {
@@ -60,8 +61,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     
 }
 
-#pragma mark - Public
 
+#pragma mark - Public
 - (void)willAddCoins:(NSInteger)coinsNumbers {
     NSInteger coinsToBeBorn = coinsNumbers;
     if (coinsToBeBorn > 500) {
@@ -104,6 +105,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     
     [self.coinPopController makeCoinsBorn:coinsToBeBorn];
 }
+
 
 #pragma mark - Private
 - (void)configureGeometryInfo {
@@ -204,6 +206,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         NSLog(@"animation finished");
     }
 }
+
 
 #pragma mark - Getter
 - (UIDynamicAnimator *)animator {

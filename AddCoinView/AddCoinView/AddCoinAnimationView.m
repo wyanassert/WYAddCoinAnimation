@@ -124,6 +124,10 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
 }
 
+- (NSUInteger)numberOfCoinItems {
+    return self.subviews.count;
+}
+
 
 #pragma mark - Private
 - (void)configureGeometryInfo {
@@ -224,11 +228,17 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 #pragma mark - UIDynamicAnimatorDelegate
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator {
     NSLog(@"did pause, %ld, %ld", (long)self.coinBirthController.notBornCoinsNumer, (long)self.coinPopController.notBornCoinsNumer);
-    if (_isPopAnimationWillStop && self.coinPopController.notBornCoinsNumer <= 0) {
+    
+    if(!_isPopAnimationWillStop && self.coinBirthController.notBornCoinsNumer <= 0) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(birthCoinAnimationFinished)]) {
+            [self.delegate birthCoinAnimationFinished];
+        }
+    }
+    if(_isPopAnimationWillStop && self.coinPopController.notBornCoinsNumer <= 0) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(popCoinAnimationFinished)]) {
             [self.delegate popCoinAnimationFinished];
         }
-        NSLog(@"animation finished");
+        NSLog(@"pop animation finished");
     }
     if(self.subviews.count == 0 && self.coinPopController.notBornCoinsNumer <= 0) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(allTheAnimationDinished)]) {

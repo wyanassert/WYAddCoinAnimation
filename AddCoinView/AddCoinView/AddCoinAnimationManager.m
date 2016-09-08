@@ -10,21 +10,76 @@
 #import "AddCoinAnimationManager.h"
 #import "AddCoinAnimationView.h"
 #import "AppDelegate.h"
+#import "AddCoinAnimationParameter.h"
 
 @interface AddCoinAnimationManager () <AddCoinAnimationViewDelegate>
 
-@property (strong, nonatomic) AddCoinAnimationView  *addCoinAnimationView;
+@property (nonatomic, strong) AddCoinAnimationView  *addCoinAnimationView;
+@property (nonatomic, assign) NSUInteger             needToPlayCount;
+@property (nonatomic, assign) NSUInteger             needToPopCount;
 
 @end
 
 @implementation AddCoinAnimationManager
+
+- (instancetype)init {
+    if(self = [super init]) {
+        self.needToPlayCount = 0;
+        self.needToPopCount = 0;
+    }
+    return self;
+}
 
 - (void)dealloc {
     [self.addCoinAnimationView stop];
     [self.addCoinAnimationView removeFromSuperview];
 }
 
+
+#pragma mark public
 - (void)addCoins:(NSInteger)coinNumber {
+    
+    NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
+    NSInteger maxDisplayAmount = self.maxDisplayAmount ? self.maxDisplayAmount : [AddCoinAnimationParameter getMaxDisplayAmount];
+    NSUInteger maxAddAmount = maxDisplayAmount - existsCoinAmount;
+    if(maxAddAmount <= 0) {
+        self.needToPlayCount += coinNumber;
+        return ;
+    } else if(maxAddAmount < coinNumber) {
+        self.needToPlayCount += coinNumber - maxAddAmount;
+        [self actuallyAddCoins:maxAddAmount];
+    } else if(self.needToPlayCount <= maxAddAmount - coinNumber) {
+        coinNumber += self.needToPlayCount;
+        self.needToPlayCount = 0;
+        [self actuallyAddCoins:coinNumber];
+    } else {
+        self.needToPlayCount -= maxAddAmount - coinNumber;
+        [self actuallyAddCoins:maxAddAmount];
+    }
+    NSLog(@"Add:%lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount);
+}
+
+- (void)popCoins:(NSInteger)coinNumber {
+    NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
+    if(coinNumber >= existsCoinAmount) {
+        self.needToPopCount += coinNumber - existsCoinAmount;
+        [self actuallyPopCoins:existsCoinAmount];
+    } else if(coinNumber + self.needToPopCount >= existsCoinAmount) {
+        self.needToPopCount -= existsCoinAmount - coinNumber;
+        [self actuallyPopCoins:existsCoinAmount];
+    } else {
+        coinNumber += self.needToPopCount;
+        self.needToPopCount = 0;
+        [self actuallyPopCoins:coinNumber];
+    }
+    NSLog(@"Pop:%lu, %lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount, existsCoinAmount);
+}
+
+
+#pragma mark private
+- (void)actuallyAddCoins:(NSInteger)coinNumber {
+    
+    NSLog(@"Did Reach Actually Add, %lu", coinNumber);
     if (coinNumber <= 0 ) {
         return;
     }
@@ -50,7 +105,7 @@
     });
 }
 
-- (void)popCoins:(NSInteger)coinNumber {
+- (void)actuallyPopCoins:(NSInteger)coinNumber {
     if (coinNumber <= 0 ) {
         return;
     }
@@ -72,8 +127,17 @@
 
 #pragma mark - CoinsFallingViewDelegate
 - (void)popCoinAnimationFinished {
+    if(self.needToPlayCount > 0) {
+        [self addCoins:0];
+    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(AddCoinPopAnimationDidFinished)]) {
         [self.delegate AddCoinPopAnimationDidFinished];
+    }
+}
+
+- (void)birthCoinAnimationFinished {
+    if(self.needToPopCount) {
+        [self popCoins:0];
     }
 }
 
@@ -95,6 +159,7 @@
     return _addCoinAnimationView;
 }
 
+
 #pragma mark - Setter
 - (void)setSnapRect:(CGRect)rect {
     _snapRect = rect;
@@ -104,6 +169,10 @@
 - (void)setDisplayRect:(CGRect)rect {
     _displayRect = rect;
     self.addCoinAnimationView.displayRect = rect;
+}
+
+-(void)setMaxDisplayAmount:(NSUInteger)maxDisplayAmount {
+    _maxDisplayAmount = maxDisplayAmount;
 }
 
 @end

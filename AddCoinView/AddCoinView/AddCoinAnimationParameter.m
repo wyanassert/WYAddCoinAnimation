@@ -73,6 +73,11 @@ float coinFallingRandom(float min, float length) {
 }
 
 
+#pragma mark - DisplayAmount
++ (NSInteger)getMaxDisplayAmount {
+    return 20;
+}
+
 #pragma mark - Private
 + (CGFloat)minCoinWidth {
     return 24.0;

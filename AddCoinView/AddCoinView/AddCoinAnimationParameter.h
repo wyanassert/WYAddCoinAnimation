@@ -25,4 +25,7 @@
 #pragma mark - Other
 + (CGPoint)randomPointInRect:(CGRect)rect;
 
+#pragma mark - DisplayAmount
++ (NSInteger)getMaxDisplayAmount;
+
 @end

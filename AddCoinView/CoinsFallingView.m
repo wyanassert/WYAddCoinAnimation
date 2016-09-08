@@ -12,6 +12,9 @@
 #import "CoinFallingItemView.h"
 #import "CoinsBirthController.h"
 
+static NSString *CoinPopControllerIdentifer = @"CoinPopControllerIdentifer";
+static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
+
 @interface CoinsFallingView()<UICollisionBehaviorDelegate,UIDynamicAnimatorDelegate,CoinsBirthControllerDelegate>
 
 @property (assign, nonatomic) CGRect                  coinBirthRect;
@@ -24,6 +27,7 @@
 @property (strong, nonatomic) NSMutableSet           *pushBehaviors;
 
 @property (strong, nonatomic) CoinsBirthController   *coinBirthController;
+@property (strong, nonatomic) CoinsBirthController   *coinPopController;
 
 @end
 
@@ -85,20 +89,21 @@
     
 }
 
+- (void)willConfirmCoinAdded:(NSInteger)coinNumber {
+    [self.coinPopController prepareForCoinsBirth:coinNumber];
+}
+
 - (void)confirmCoinAdded:(NSInteger)coinNumber {
-    for(UIView *view in self.subviews) {
-        if([view isKindOfClass:[CoinFallingItemView class]]) {
-            CoinFallingItemView *item = (CoinFallingItemView *)view;
-            if(!item.hasAttached) {
-                if(coinNumber <= 0) {
-                    break;
-                }
-                CGRect endRect  = [CoinFallingParameter coinSnapArea];
-                [self popItem:item toSnap:CGPointMake(CGRectGetMidX(endRect), CGRectGetMidY(endRect))];
-                coinNumber--;
-            }
-        }
+    if (coinNumber <= 0 ) {
+        return;
     }
+    
+    NSInteger coinsToBeBorn = coinNumber;
+    if (coinsToBeBorn > 500) {
+        coinsToBeBorn = 500;
+    }
+    
+    [self.coinPopController makeCoinsBorn:coinsToBeBorn];
 }
 
 #pragma mark - Private
@@ -143,6 +148,25 @@
     
 }
 
+- (void)popCoinsToDynamics:(NSInteger)number {
+    if(0 >= number) {
+        return ;
+    }
+    for(UIView *view in self.subviews) {
+        if([view isKindOfClass:[CoinFallingItemView class]]) {
+            CoinFallingItemView *item = (CoinFallingItemView *)view;
+            if(!item.hasAttached) {
+                if(0 >= number) {
+                    break;
+                }
+                CGRect endRect  = [CoinFallingParameter coinSnapArea];
+                [self popItem:item toSnap:CGPointMake(CGRectGetMidX(endRect), CGRectGetMidY(endRect))];
+                number--;
+            }
+        }
+    }
+}
+
 - (void)popItem:(CoinFallingItemView *)item toSnap:(CGPoint)point {
     
     item.hasAttached = YES;
@@ -160,11 +184,15 @@
 
 
 #pragma mark - CoinsBirthControllerDelegate
-- (void)coinsDidBorn:(NSInteger)coinsNumber {
-    [self addCoinsToDynamics:coinsNumber];
+- (void)coinsDidBorn:(NSInteger)coinsNumber withCnntrollerIdentify:(NSString *)identifer{
+    if([identifer isEqualToString:CoinBornControllerIdentifer]) {
+        [self addCoinsToDynamics:coinsNumber];
+    } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
+        [self popCoinsToDynamics:coinsNumber];
+    }
 }
 
-- (void)coinBornDidFinished {
+- (void)coinBornDidFinishedWithCnntrollerIdentify:(NSString *)identifer{
    
 }
 
@@ -260,10 +288,18 @@
 
 - (CoinsBirthController *)coinBirthController {
     if (!_coinBirthController) {
-        _coinBirthController = [[CoinsBirthController alloc] init];
+        _coinBirthController = [[CoinsBirthController alloc] initWithIdentifier:CoinBornControllerIdentifer];
         _coinBirthController.delegate = self;
     }
     return _coinBirthController;
+}
+
+- (CoinsBirthController *)coinPopController {
+    if(!_coinPopController) {
+        _coinPopController = [[CoinsBirthController alloc] initWithIdentifier:CoinPopControllerIdentifer];
+        _coinPopController.delegate = self;
+    }
+    return _coinPopController;
 }
 
 @end

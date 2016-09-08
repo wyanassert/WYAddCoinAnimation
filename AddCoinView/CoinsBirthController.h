@@ -18,6 +18,8 @@
 
 @property (weak, nonatomic  ) id<CoinsBirthControllerDelegate>  delegate;
 
+- (instancetype)initWithIdentifier:(NSString *)identifer;
+
 - (void)prepareForCoinsBirth:(NSInteger)coinsNumber;
 - (void)makeCoinsBorn:(NSInteger)coinsNumber;
 - (void)clear;
@@ -27,7 +29,7 @@
 
 @protocol CoinsBirthControllerDelegate <NSObject>
 
-- (void)coinsDidBorn:(NSInteger)coinsNumber;
-- (void)coinBornDidFinished;
+- (void)coinsDidBorn:(NSInteger)coinsNumber withCnntrollerIdentify:(NSString *)identifer;
+- (void)coinBornDidFinishedWithCnntrollerIdentify:(NSString *)identifer;
 
 @end

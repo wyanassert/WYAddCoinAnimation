@@ -11,13 +11,23 @@
 
 @interface CoinsBirthController ()
 
-@property (nonatomic, strong) CADisplayLink   *displayLink;
-@property (nonatomic, assign) NSTimeInterval   lastCoinBornAbsoluteTime;
-@property (nonatomic, assign) NSTimeInterval   coinsBornLeftTime;
+@property (nonatomic, strong, readonly) NSString        *identifer;
+@property (nonatomic, strong          ) CADisplayLink   *displayLink;
+@property (nonatomic, assign          ) NSTimeInterval   lastCoinBornAbsoluteTime;
+@property (nonatomic, assign          ) NSTimeInterval   coinsBornLeftTime;
 
 @end
 
 @implementation CoinsBirthController
+
+@synthesize identifer = _identifer;
+
+- (instancetype)initWithIdentifier:(NSString *)identifer {
+    if(self = [super init]) {
+        _identifer = identifer;
+    }
+    return self;
+}
 
 - (void)prepareForCoinsBirth:(NSInteger)coinsNumber {
     
@@ -84,7 +94,7 @@
     
     if (self.notBornCoinsNumer <= 0 || self.coinsBornLeftTime <= 0.0) {
         [self invalidateDisplayLink];
-        [self.delegate coinBornDidFinished];
+        [self.delegate coinBornDidFinishedWithCnntrollerIdentify:self.identifer];
     } else {
         NSInteger birthRate = self.notBornCoinsNumer * 1.0  / self.coinsBornLeftTime;
         NSInteger coinsNumber =  birthRate * displayLink.duration + 0.5;
@@ -97,7 +107,7 @@
         self.lastCoinBornAbsoluteTime = CFAbsoluteTimeGetCurrent();
         
         coinsNumber = coinsNumber > self.notBornCoinsNumer ? self.notBornCoinsNumer : coinsNumber;
-        [self.delegate coinsDidBorn:coinsNumber];
+        [self.delegate coinsDidBorn:coinsNumber withCnntrollerIdentify:self.identifer];
         NSLog(@"dispalylink make %@ coins born",@(coinsNumber));
         
         self.notBornCoinsNumer = self.notBornCoinsNumer - coinsNumber;

@@ -94,7 +94,7 @@
     
     if (self.notBornCoinsNumer <= 0 || self.coinsBornLeftTime <= 0.0) {
         [self invalidateDisplayLink];
-        [self.delegate coinBornDidFinishedWithCnntrollerIdentify:self.identifer];
+        [self.delegate coinDidFinishedWithControllerIdentify:self.identifer];
     } else {
         NSInteger birthRate = self.notBornCoinsNumer * 1.0  / self.coinsBornLeftTime;
         NSInteger coinsNumber =  birthRate * displayLink.duration + 0.5;
@@ -107,7 +107,7 @@
         self.lastCoinBornAbsoluteTime = CFAbsoluteTimeGetCurrent();
         
         coinsNumber = coinsNumber > self.notBornCoinsNumer ? self.notBornCoinsNumer : coinsNumber;
-        [self.delegate coinsDidBorn:coinsNumber withCnntrollerIdentify:self.identifer];
+        [self.delegate coinsDidBorn:coinsNumber withControllerIdentify:self.identifer];
         NSLog(@"dispalylink make %@ coins born",@(coinsNumber));
         
         self.notBornCoinsNumer = self.notBornCoinsNumer - coinsNumber;

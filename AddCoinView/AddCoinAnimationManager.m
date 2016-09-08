@@ -66,27 +66,31 @@
 
 
 #pragma mark - CoinsFallingViewDelegate
-
-- (void)fallingAnimationFinished{
-    
-    //    [self.coinsFallingView removeFromSuperview];
-    NSLog(@"CoinsFallingManager_remove_falling_view");
-    
+- (void)popCoinAnimationFinished {
+    if(self.delegate && [self.delegate respondsToSelector:@selector(AddCoinPopAnimationDidFinished)]) {
+        [self.delegate AddCoinPopAnimationDidFinished];
+    }
 }
 
-#pragma mark - Getter
+- (void)allTheAnimationDinished {
+    [self.addCoinAnimationView removeFromSuperview];
+    
+    if(self.delegate && [self.delegate respondsToSelector:@selector(AddCoinAllAnimationDidFinished)]) {
+        [self.delegate AddCoinAllAnimationDidFinished];
+    }
+}
 
+
+#pragma mark - Getter
 - (AddCoinAnimationView *)addCoinAnimationView {
     if (!_addCoinAnimationView) {
-        UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
-        _addCoinAnimationView = [[AddCoinAnimationView alloc] initWithFrame:window.bounds];
+        _addCoinAnimationView = [[AddCoinAnimationView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _addCoinAnimationView.delegate = self;
     }
     return _addCoinAnimationView;
 }
 
 #pragma mark - Setter
-
 - (void)setSnapRect:(CGRect)rect {
     _snapRect = rect;
     self.addCoinAnimationView.snapRect = rect;

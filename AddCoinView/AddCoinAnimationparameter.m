@@ -26,7 +26,6 @@ float coinFallingRandom(float min, float length){
         }
         return time;
     }
-    
 }
 
 + (CGSize)randomCoinSize {
@@ -56,6 +55,7 @@ float coinFallingRandom(float min, float length){
     return 3.0 / 4;
 }
 
+
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:5];
@@ -65,6 +65,7 @@ float coinFallingRandom(float min, float length){
     }
     return [array copy];
 }
+
 
 #pragma mark - Others
 + (CGPoint)randomPointInRect:(CGRect)rect {

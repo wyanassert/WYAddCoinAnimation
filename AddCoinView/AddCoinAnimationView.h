@@ -10,7 +10,11 @@
 
 @protocol AddCoinAnimationViewDelegate <NSObject>
 
-- (void)fallingAnimationFinished;
+- (void)allTheAnimationDinished;
+
+@optional
+
+- (void)popCoinAnimationFinished;
 
 @end
 

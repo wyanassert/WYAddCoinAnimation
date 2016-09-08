@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "AddCoinAnimationManager.h"
 
-@interface ViewController ()
+@interface ViewController () <AddCoinAnimationManagerDelegate>
 
 @property (nonatomic, strong) AddCoinAnimationManager *addCoinAnimationManager;
 
@@ -50,13 +50,13 @@
     UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(270, 400, 100, 50)];
     [button4 setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:button4];
-    [button4 setTitle:@"100" forState:UIControlStateNormal];
+    [button4 setTitle:@"36" forState:UIControlStateNormal];
     [button4 addTarget:self action:@selector(buttonAction4:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(270, 500, 100, 50)];
     [button5 setBackgroundColor:[UIColor greenColor]];
     [self.view addSubview:button5];
-    [button5 setTitle:@"100" forState:UIControlStateNormal];
+    [button5 setTitle:@"36" forState:UIControlStateNormal];
     [button5 addTarget:self action:@selector(buttonAction5:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -85,13 +85,21 @@
 }
 
 - (void)buttonAction4:(UIButton *)button {
-    [self.addCoinAnimationManager addCoins:100];
+    [self.addCoinAnimationManager addCoins:36];
 }
 
 - (void)buttonAction5:(UIButton *)button {
-    [self.addCoinAnimationManager popCoins:100];
+    [self.addCoinAnimationManager popCoins:36];
 }
 
+#pragma mark AddCoinAnimationManagerDelegate
+- (void)AddCoinAllAnimationDidFinished {
+    
+}
+
+- (void)AddCoinPopAnimationDidFinished {
+    
+}
 
 #pragma mark AddCoinAnimationManager
 - (AddCoinAnimationManager *)addCoinAnimationManager {
@@ -99,6 +107,7 @@
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
         _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
+        _addCoinAnimationManager.delegate = self;
     }
     return _addCoinAnimationManager;
 }

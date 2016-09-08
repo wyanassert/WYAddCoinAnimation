@@ -16,6 +16,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
 @interface AddCoinAnimationView () <UIDynamicAnimatorDelegate, CoinsAnimationControllerDelegate>
 
+@property (assign, nonatomic) BOOL                       isPopAnimationWillStop;
+
 @property (assign, nonatomic) CGRect                     coinBirthRect;
 @property (assign, nonatomic) CGFloat                    bouncePositionY;
 
@@ -77,7 +79,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
     
     if (self.coinBirthRect.size.width <= 0 || self.coinBirthRect.size.height <= 0) {
-        [self.delegate fallingAnimationFinished];
+        [self.delegate allTheAnimationDinished];
     }
     
     NSInteger coinsToBeBorn = coinsNumber;
@@ -184,8 +186,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 }
 
 
-#pragma mark - CoinsBirthControllerDelegate
-- (void)coinsDidBorn:(NSInteger)coinsNumber withCnntrollerIdentify:(NSString *)identifer{
+#pragma mark - CoinsAnimationControllerDelegate
+- (void)coinsDidBorn:(NSInteger)coinsNumber withControllerIdentify:(NSString *)identifer{
     if([identifer isEqualToString:CoinBornControllerIdentifer]) {
         [self addCoinsToDynamics:coinsNumber];
     } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
@@ -193,17 +195,28 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
 }
 
-- (void)coinBornDidFinishedWithCnntrollerIdentify:(NSString *)identifer{
-    
+- (void)coinDidFinishedWithControllerIdentify:(NSString *)identifer{
+    if([identifer isEqualToString:CoinBornControllerIdentifer]) {
+        _isPopAnimationWillStop = NO;
+    } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
+        _isPopAnimationWillStop = YES;
+    }
 }
 
 
 #pragma mark - UIDynamicAnimatorDelegate
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator {
-    NSLog(@"did pause");
-    if (self.itemBehavior.items.count == 0 && self.coinBirthController.notBornCoinsNumer <= 0) {
-        [self.delegate fallingAnimationFinished];
+    NSLog(@"did pause, %ld, %ld", (long)self.coinBirthController.notBornCoinsNumer, (long)self.coinPopController.notBornCoinsNumer);
+    if (_isPopAnimationWillStop && self.coinPopController.notBornCoinsNumer <= 0) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(popCoinAnimationFinished)]) {
+            [self.delegate popCoinAnimationFinished];
+        }
         NSLog(@"animation finished");
+    }
+    if(self.subviews.count == 0 && self.coinPopController.notBornCoinsNumer <= 0) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(allTheAnimationDinished)]) {
+            [self.delegate allTheAnimationDinished];
+        }
     }
 }
 

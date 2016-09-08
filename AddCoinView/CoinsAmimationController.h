@@ -16,7 +16,7 @@
 @property (nonatomic, assign) NSInteger                         notBornCoinsNumer;
 @property (nonatomic, assign) NSInteger                         totalBornCoinsNumber;
 
-@property (weak, nonatomic  ) id<CoinsAnimationControllerDelegate>  delegate;
+@property (nonatomic, weak  ) id<CoinsAnimationControllerDelegate>  delegate;
 
 - (instancetype)initWithIdentifier:(NSString *)identifer;
 
@@ -29,7 +29,7 @@
 
 @protocol CoinsAnimationControllerDelegate <NSObject>
 
-- (void)coinsDidBorn:(NSInteger)coinsNumber withCnntrollerIdentify:(NSString *)identifer;
-- (void)coinBornDidFinishedWithCnntrollerIdentify:(NSString *)identifer;
+- (void)coinsDidBorn:(NSInteger)coinsNumber withControllerIdentify:(NSString *)identifer;
+- (void)coinDidFinishedWithControllerIdentify:(NSString *)identifer;
 
 @end

@@ -173,6 +173,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 - (void)popItem:(CoinAnimationItemView *)item toSnap:(CGPoint)point {
     
     item.hasAttached = YES;
+    
     UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
     snapBehavior.damping = 1;
     

@@ -95,6 +95,7 @@
     if (self.notBornCoinsNumer <= 0 || self.coinsBornLeftTime <= 0.0) {
         [self invalidateDisplayLink];
         [self.delegate coinDidFinishedWithControllerIdentify:self.identifer];
+        [self.displayLink invalidate];
     } else {
         NSInteger birthRate = self.notBornCoinsNumer * 1.0  / self.coinsBornLeftTime;
         NSInteger coinsNumber =  birthRate * displayLink.duration + 0.5;

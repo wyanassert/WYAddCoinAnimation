@@ -108,6 +108,22 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     [self.coinPopController makeCoinsBorn:coinsToBeBorn];
 }
 
+- (void)stop {
+    [self.coinBirthController clear];
+    [self.coinPopController clear];
+    for(UIView *view in self.subviews) {
+        if([view isKindOfClass:[CoinAnimationItemView class]]) {
+            CoinAnimationItemView *item = (CoinAnimationItemView *)view;
+            if(item.dismissAction) {
+                item.dismissAction();
+            }
+            [self.itemBehavior removeItem:item];
+            [self.popItemBehavior removeItem:item];
+            [item removeFromSuperview];
+        }
+    }
+}
+
 
 #pragma mark - Private
 - (void)configureGeometryInfo {
@@ -173,6 +189,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 - (void)popItem:(CoinAnimationItemView *)item toSnap:(CGPoint)point {
     
     item.hasAttached = YES;
+    
     UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:item snapToPoint:point];
     snapBehavior.damping = 1;
     
@@ -284,7 +301,9 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
             for(CoinAnimationItemView *item in array) {
                 if(weakSelf.snapRect.size.width <= 0 || CGRectContainsPoint(weakSelf.snapRect, item.center)) {
                     [weakPopItemBehavior removeItem:item];
-                    item.dismissAction();
+                    if(item.dismissAction) {
+                        item.dismissAction();
+                    }
                     [item removeFromSuperview];
                 }
             }

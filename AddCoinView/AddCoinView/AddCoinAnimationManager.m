@@ -39,40 +39,46 @@
 #pragma mark public
 - (void)addCoins:(NSInteger)coinNumber {
     
-    NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
-    NSInteger maxDisplayAmount = self.maxDisplayAmount ? self.maxDisplayAmount : [AddCoinAnimationParameter getMaxDisplayAmount];
-    NSUInteger maxAddAmount = maxDisplayAmount - existsCoinAmount;
-    if(maxAddAmount <= 0) {
-        self.needToPlayCount += coinNumber;
-        return ;
-    } else if(maxAddAmount < coinNumber) {
-        self.needToPlayCount += coinNumber - maxAddAmount;
-        [self actuallyAddCoins:maxAddAmount];
-    } else if(self.needToPlayCount <= maxAddAmount - coinNumber) {
-        coinNumber += self.needToPlayCount;
-        self.needToPlayCount = 0;
-        [self actuallyAddCoins:coinNumber];
-    } else {
-        self.needToPlayCount -= maxAddAmount - coinNumber;
-        [self actuallyAddCoins:maxAddAmount];
-    }
-    NSLog(@"Add:%lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger number = coinNumber;
+        NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
+        NSInteger maxDisplayAmount = self.maxDisplayAmount ? self.maxDisplayAmount : [AddCoinAnimationParameter getMaxDisplayAmount];
+        NSUInteger maxAddAmount = maxDisplayAmount - existsCoinAmount;
+        if(maxAddAmount <= 0) {
+            self.needToPlayCount += number;
+            return ;
+        } else if(maxAddAmount < number) {
+            self.needToPlayCount += number - maxAddAmount;
+            [self actuallyAddCoins:maxAddAmount];
+        } else if(self.needToPlayCount <= maxAddAmount - number) {
+            number += self.needToPlayCount;
+            self.needToPlayCount = 0;
+            [self actuallyAddCoins:number];
+        } else {
+            self.needToPlayCount -= maxAddAmount - number;
+            [self actuallyAddCoins:maxAddAmount];
+        }
+        NSLog(@"Add:%lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount);
+    });
 }
 
 - (void)popCoins:(NSInteger)coinNumber {
-    NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
-    if(coinNumber >= existsCoinAmount) {
-        self.needToPopCount += coinNumber - existsCoinAmount;
-        [self actuallyPopCoins:existsCoinAmount];
-    } else if(coinNumber + self.needToPopCount >= existsCoinAmount) {
-        self.needToPopCount -= existsCoinAmount - coinNumber;
-        [self actuallyPopCoins:existsCoinAmount];
-    } else {
-        coinNumber += self.needToPopCount;
-        self.needToPopCount = 0;
-        [self actuallyPopCoins:coinNumber];
-    }
-    NSLog(@"Pop:%lu, %lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount, existsCoinAmount);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger number = coinNumber;
+        NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
+        if(number >= existsCoinAmount) {
+            self.needToPopCount += number - existsCoinAmount;
+            [self actuallyPopCoins:existsCoinAmount];
+        } else if(number + self.needToPopCount >= existsCoinAmount) {
+            self.needToPopCount -= existsCoinAmount - number;
+            [self actuallyPopCoins:existsCoinAmount];
+        } else {
+            number += self.needToPopCount;
+            self.needToPopCount = 0;
+            [self actuallyPopCoins:number];
+        }
+        NSLog(@"Pop:%lu, %lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount, existsCoinAmount);
+    });
 }
 
 - (void)removeCoins:(NSInteger)coinNumber {
@@ -90,22 +96,18 @@
     NSInteger actuallyBornCoin = coinNumber;
     NSLog(@"coin number:%@, ActuallyBornCoin:%@",@(coinNumber),@(actuallyBornCoin));
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [self.addCoinAnimationView willAddCoins:actuallyBornCoin];
+    
+    UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
+    if (!self.addCoinAnimationView.superview) {
         
-        [self.addCoinAnimationView willAddCoins:actuallyBornCoin];
-        
-        UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
-        if (!self.addCoinAnimationView.superview) {
-            
-            NSLog(@"coin_falling_view_no_superview");
-            [window addSubview:self.addCoinAnimationView];
-        }
-        
-        [self.addCoinAnimationView addCoins:actuallyBornCoin];
-        
-        NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
-        
-    });
+        NSLog(@"coin_falling_view_no_superview");
+        [window addSubview:self.addCoinAnimationView];
+    }
+    
+    [self.addCoinAnimationView addCoins:actuallyBornCoin];
+    
+    NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
 }
 
 - (void)actuallyPopCoins:(NSInteger)coinNumber {
@@ -116,15 +118,12 @@
     NSInteger actuallyBornCoin = coinNumber;
     NSLog(@"coin number:%@, ActuallyBornCoin:%@",@(coinNumber),@(actuallyBornCoin));
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.addCoinAnimationView willConfirmCoinAdded:actuallyBornCoin];
-        
-        [self.addCoinAnimationView confirmCoinAdded:actuallyBornCoin];
-        
-        NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
-        
-    });
+    [self.addCoinAnimationView willConfirmCoinAdded:actuallyBornCoin];
+    
+    [self.addCoinAnimationView confirmCoinAdded:actuallyBornCoin];
+    
+    NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
+
 }
 
 

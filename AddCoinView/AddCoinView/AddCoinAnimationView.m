@@ -125,7 +125,15 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 }
 
 - (NSUInteger)numberOfCoinItems {
-    return self.subviews.count;
+    NSUInteger result = 0;
+    for(UIView *view in self.subviews) {
+        if([view isKindOfClass:[CoinAnimationItemView class]]) {
+            if(!((CoinAnimationItemView *)view).hasAttached) {
+                result ++;
+            }
+        }
+    }
+    return result;
 }
 
 

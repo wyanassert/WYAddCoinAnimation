@@ -59,7 +59,7 @@ float coinFallingRandom(float min, float length) {
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:5];
-    for(int i = 1; i <=5; i++) {
+    for(int i = 0; i < 10; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"coin_%01d", i]];
         [array addObject:image];
     }
@@ -77,6 +77,7 @@ float coinFallingRandom(float min, float length) {
 + (NSInteger)getMaxDisplayAmount {
     return 20;
 }
+
 
 #pragma mark - Private
 + (CGFloat)minCoinWidth {

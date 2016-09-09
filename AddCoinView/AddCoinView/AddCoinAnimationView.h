@@ -32,6 +32,8 @@
 - (void)willConfirmCoinAdded:(NSInteger)coinNumber;
 - (void)confirmCoinAdded:(NSInteger)coinNumber;
 
+- (void)removeCoins:(NSInteger)coinNumber;
+
 - (void)stop;
 
 - (NSUInteger)numberOfCoinItems;

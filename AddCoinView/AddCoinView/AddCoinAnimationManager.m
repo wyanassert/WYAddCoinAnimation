@@ -75,6 +75,9 @@
     NSLog(@"Pop:%lu, %lu, %lu", (unsigned long)self.needToPlayCount, (unsigned long)self.needToPopCount, existsCoinAmount);
 }
 
+- (void)removeCoins:(NSInteger)coinNumber {
+    
+}
 
 #pragma mark private
 - (void)actuallyAddCoins:(NSInteger)coinNumber {

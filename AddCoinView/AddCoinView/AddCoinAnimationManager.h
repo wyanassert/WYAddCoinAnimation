@@ -15,6 +15,7 @@
 
 - (void)addCoins:(NSInteger)coinNumber;
 - (void)popCoins:(NSInteger)coinNumber;
+- (void)removeCoins:(NSInteger)coinNumber;
 
 @property (nonatomic, assign) CGRect                            snapRect;
 @property (nonatomic, assign) CGRect                            displayRect;

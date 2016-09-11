@@ -6,10 +6,10 @@
 //  Copyright © 2016 wyan assert. All rights reserved.
 //
 
-#import "CoinsAmimationController.h"
+#import "CoinsAnimationController.h"
 #import "AddCoinAnimationParameter.h"
 
-@interface CoinsAmimationController ()
+@interface CoinsAnimationController ()
 
 @property (nonatomic, strong, readonly) NSString        *identifer;
 @property (nonatomic, strong          ) CADisplayLink   *displayLink;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation CoinsAmimationController
+@implementation CoinsAnimationController
 
 @synthesize identifer = _identifer;
 
@@ -46,19 +46,19 @@
     
     if (self.displayLink) {
         if (self.displayLink.paused) {
-            NSLog(@"displaylink paused");
+//            NSLog(@"displaylink paused");
         } else {
-            NSLog(@"displaylink ok");
+//            NSLog(@"displaylink ok");
         }
     } else {
-        NSLog(@"no display link");
+//        NSLog(@"no display link");
     }
     
     if (!self.displayLink || self.displayLink.paused) {
         [self.displayLink invalidate];
         self.displayLink =  [CADisplayLink displayLinkWithTarget:self selector:@selector(update:)];
         self.displayLink.frameInterval = 2;
-        NSLog(@"create_display_link");
+//        NSLog(@"create_display_link");
     }
 }
 
@@ -75,21 +75,21 @@
         return;
     }
     [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-    NSLog(@"display_link_add_to_mainRunLoop");
+//    NSLog(@"display_link_add_to_mainRunLoop");
 }
 
 - (void)invalidateDisplayLink {
     [self.displayLink invalidate];
     self.displayLink = nil;
     self.coinsBornLeftTime = 0.0;
-    NSLog(@"display_link_invalidate");
+//    NSLog(@"display_link_invalidate");
 }
 
 - (void)update:(CADisplayLink *)displayLink {
     if (self.notBornCoinsNumer <= 0) {
-        NSLog(@"notBornCoinsNumer <= 0");
+//        NSLog(@"notBornCoinsNumer <= 0");
     }else if(self.coinsBornLeftTime <= 0.0) {
-        NSLog(@"coinsBornLeftTime <= 0");
+//        NSLog(@"coinsBornLeftTime <= 0");
     }
     
     if (self.notBornCoinsNumer <= 0 || self.coinsBornLeftTime <= 0.0) {
@@ -109,7 +109,7 @@
         
         coinsNumber = coinsNumber > self.notBornCoinsNumer ? self.notBornCoinsNumer : coinsNumber;
         [self.delegate coinsDidBorn:coinsNumber withControllerIdentify:self.identifer];
-        NSLog(@"dispalylink make %@ coins born",@(coinsNumber));
+//        NSLog(@"dispalylink make %@ coins born",@(coinsNumber));
         
         self.notBornCoinsNumer = self.notBornCoinsNumer - coinsNumber;
         self.totalBornCoinsNumber = self.totalBornCoinsNumber + coinsNumber;

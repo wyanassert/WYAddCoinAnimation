@@ -27,7 +27,6 @@
 
 @protocol AddCoinAnimationManagerDelegate <NSObject>
 
-- (void)AddCoinPopAnimationDidFinished;
-- (void)AddCoinAllAnimationDidFinished;
+- (void)AddCoinPopAnimationDidFinished:(NSInteger)coinNumber;
 
 @end

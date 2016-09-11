@@ -9,7 +9,7 @@
 #import "AddCoinAnimationView.h"
 #import "AddCoinAnimationParameter.h"
 #import "CoinAnimationItemView.h"
-#import "CoinsAmimationController.h"
+#import "CoinsAnimationController.h"
 
 static NSString *CoinPopControllerIdentifer = @"CoinPopControllerIdentifer";
 static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
@@ -28,9 +28,9 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 
 @property (strong, nonatomic) NSMutableSet              *pushBehaviors;
 
-@property (strong, nonatomic) CoinsAmimationController  *coinBirthController;
-@property (strong, nonatomic) CoinsAmimationController  *coinPopController;
-@property (strong, nonatomic) CoinsAmimationController  *coinRemoveController;
+@property (strong, nonatomic) CoinsAnimationController  *coinBirthController;
+@property (strong, nonatomic) CoinsAnimationController  *coinPopController;
+@property (strong, nonatomic) CoinsAnimationController  *coinRemoveController;
 
 @end
 
@@ -284,15 +284,13 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         _isPopAnimationWillStop = NO;
     } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
         _isPopAnimationWillStop = YES;
-    } else if([identifer isEqualToString:CoinRemoveControllerIdentifier]) {
-        _isPopAnimationWillStop = NO;
-    }
+    } 
 }
 
 
 #pragma mark - UIDynamicAnimatorDelegate
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator {
-    NSLog(@"did pause, %ld, %ld", (long)self.coinBirthController.notBornCoinsNumer, (long)self.coinPopController.notBornCoinsNumer);
+//    NSLog(@"did pause, %ld, %ld", (long)self.coinBirthController.notBornCoinsNumer, (long)self.coinPopController.notBornCoinsNumer);
     
     if(!_isPopAnimationWillStop && self.coinBirthController.notBornCoinsNumer <= 0) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(birthCoinAnimationFinished)]) {
@@ -303,7 +301,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         if(self.delegate && [self.delegate respondsToSelector:@selector(popCoinAnimationFinished)]) {
             [self.delegate popCoinAnimationFinished];
         }
-        NSLog(@"pop animation finished");
+//        NSLog(@"pop animation finished");
     }
     if(self.subviews.count == 0 && self.coinPopController.notBornCoinsNumer <= 0) {
         if(self.delegate && [self.delegate respondsToSelector:@selector(allTheAnimationDinished)]) {
@@ -395,25 +393,25 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
     return _pushBehaviors;
 }
 
-- (CoinsAmimationController *)coinBirthController {
+- (CoinsAnimationController *)coinBirthController {
     if (!_coinBirthController) {
-        _coinBirthController = [[CoinsAmimationController alloc] initWithIdentifier:CoinBornControllerIdentifer];
+        _coinBirthController = [[CoinsAnimationController alloc] initWithIdentifier:CoinBornControllerIdentifer];
         _coinBirthController.delegate = self;
     }
     return _coinBirthController;
 }
 
-- (CoinsAmimationController *)coinPopController {
+- (CoinsAnimationController *)coinPopController {
     if(!_coinPopController) {
-        _coinPopController = [[CoinsAmimationController alloc] initWithIdentifier:CoinPopControllerIdentifer];
+        _coinPopController = [[CoinsAnimationController alloc] initWithIdentifier:CoinPopControllerIdentifer];
         _coinPopController.delegate = self;
     }
     return _coinPopController;
 }
 
-- (CoinsAmimationController *)coinRemoveController {
+- (CoinsAnimationController *)coinRemoveController {
     if(!_coinRemoveController) {
-        _coinRemoveController = [[CoinsAmimationController alloc] initWithIdentifier:CoinRemoveControllerIdentifier];
+        _coinRemoveController = [[CoinsAnimationController alloc] initWithIdentifier:CoinRemoveControllerIdentifier];
         _coinRemoveController.delegate = self;
     }
     return _coinRemoveController;

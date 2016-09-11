@@ -110,7 +110,7 @@
     static NSInteger i = 0;
     i++;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(i % 2) {
+        if(0) {
             [self.addCoinAnimationManager removeCoins:coins];
         } else {
             [self.addCoinAnimationManager popCoins:coins];
@@ -119,12 +119,8 @@
 }
 
 #pragma mark AddCoinAnimationManagerDelegate
-- (void)AddCoinAllAnimationDidFinished {
-    
-}
-
-- (void)AddCoinPopAnimationDidFinished {
-    
+- (void)AddCoinPopAnimationDidFinished:(NSInteger)coinNumber {
+    NSLog(@"%d", coinNumber);
 }
 
 #pragma mark AddCoinAnimationManager
@@ -133,7 +129,7 @@
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
         _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
-        _addCoinAnimationManager.maxDisplayAmount = 4;
+//        _addCoinAnimationManager.maxDisplayAmount = 4;
         _addCoinAnimationManager.delegate = self;
     }
     return _addCoinAnimationManager;

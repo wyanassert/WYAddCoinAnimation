@@ -107,8 +107,14 @@
 
 #pragma mark Private
 - (void)addPopTask:(NSInteger)coins {
+    static NSInteger i = 0;
+    i++;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.addCoinAnimationManager popCoins:coins];
+        if(i % 2) {
+            [self.addCoinAnimationManager removeCoins:coins];
+        } else {
+            [self.addCoinAnimationManager popCoins:coins];
+        }
     });
 }
 
@@ -127,7 +133,7 @@
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
         _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
-        _addCoinAnimationManager.maxDisplayAmount = 20;
+        _addCoinAnimationManager.maxDisplayAmount = 4;
         _addCoinAnimationManager.delegate = self;
     }
     return _addCoinAnimationManager;

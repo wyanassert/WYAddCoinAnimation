@@ -13,6 +13,7 @@
 
 static NSString *CoinPopControllerIdentifer = @"CoinPopControllerIdentifer";
 static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
+static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifier";
 
 @interface AddCoinAnimationView () <UIDynamicAnimatorDelegate, CoinsAnimationControllerDelegate>
 
@@ -29,6 +30,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 
 @property (strong, nonatomic) CoinsAmimationController  *coinBirthController;
 @property (strong, nonatomic) CoinsAmimationController  *coinPopController;
+@property (strong, nonatomic) CoinsAmimationController  *coinRemoveController;
 
 @end
 
@@ -107,6 +109,20 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
     
     [self.coinPopController makeCoinsBorn:coinsToBeBorn];
+}
+
+- (void)willRemoveCoins:(NSInteger)coinNumber {
+    [self addWillPopOrRemovetag:coinNumber];
+    [self.coinRemoveController prepareForCoinsBirth:coinNumber];
+    
+}
+
+- (void)removeCoins:(NSInteger)coinNumber {
+    if (coinNumber <= 0 ) {
+        return;
+    }
+    
+    [self.coinRemoveController makeCoinsBorn:coinNumber];
 }
 
 - (void)stop {
@@ -199,6 +215,30 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
 }
 
+- (void)removeCoinsToDynamics:(NSInteger)number {
+    if(0 >= number) {
+        return ;
+    }
+    for(UIView *view in self.subviews) {
+        if([view isKindOfClass:[CoinAnimationItemView class]]) {
+            CoinAnimationItemView *item = (CoinAnimationItemView *)view;
+            if(!item.hasAttached && item.isSigned) {
+                if(item.dismissAction) {
+                    item.dismissAction();
+                }
+                [self.itemBehavior removeItem:item];
+                [self.popItemBehavior removeItem:item];
+                [item removeFromSuperview];
+                
+                number--;
+                if(0 >= number) {
+                    break;
+                }
+            }
+        }
+    }
+}
+
 - (void)popItem:(CoinAnimationItemView *)item toSnap:(CGPoint)point {
     
     item.hasAttached = YES;
@@ -234,6 +274,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         [self addCoinsToDynamics:coinsNumber];
     } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
         [self popCoinsToDynamics:coinsNumber];
+    } else if([identifer isEqualToString:CoinRemoveControllerIdentifier]) {
+        [self removeCoinsToDynamics:coinsNumber];
     }
 }
 
@@ -242,6 +284,8 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
         _isPopAnimationWillStop = NO;
     } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
         _isPopAnimationWillStop = YES;
+    } else if([identifer isEqualToString:CoinRemoveControllerIdentifier]) {
+        _isPopAnimationWillStop = NO;
     }
 }
 
@@ -366,6 +410,15 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     }
     return _coinPopController;
 }
+
+- (CoinsAmimationController *)coinRemoveController {
+    if(!_coinRemoveController) {
+        _coinRemoveController = [[CoinsAmimationController alloc] initWithIdentifier:CoinRemoveControllerIdentifier];
+        _coinRemoveController.delegate = self;
+    }
+    return _coinRemoveController;
+}
+
 
 #pragma mark - Setter
 - (void)setDisplayRect:(CGRect)displayRect {

@@ -82,7 +82,22 @@
 }
 
 - (void)removeCoins:(NSInteger)coinNumber {
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSInteger actuallyCoinNumber = coinNumber;
+        if(self.needToPlayCount >= coinNumber) {
+            self.needToPlayCount -= coinNumber;
+            return ;
+        } else {
+            actuallyCoinNumber -= self.needToPlayCount;
+            self.needToPlayCount = 0;
+            NSInteger existCoinNumber = [self.addCoinAnimationView numberOfCoinItems];
+            if(existCoinNumber < actuallyCoinNumber) {
+                [self actuallyRemoveCoins:existCoinNumber];
+            } else {
+                [self actuallyRemoveCoins:actuallyCoinNumber];
+            }
+        }
+    });
 }
 
 #pragma mark private
@@ -124,6 +139,16 @@
     
     NSLog(@"CoinsFallingManager_add_coins:%@",@(actuallyBornCoin));
 
+}
+
+- (void)actuallyRemoveCoins:(NSInteger)coinNumber {
+    if(coinNumber <= 0) {
+        return ;
+    }
+    
+    [self.addCoinAnimationView willRemoveCoins:coinNumber];
+    
+    [self.addCoinAnimationView removeCoins:coinNumber];
 }
 
 

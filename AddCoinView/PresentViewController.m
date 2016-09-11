@@ -32,7 +32,7 @@
     
     UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 500, 100, 50)];
     [button1 setBackgroundColor:[UIColor greenColor]];
-    [self.view addSubview:button1];
+//    [self.view addSubview:button1];
     [button1 setTitle:@"1" forState:UIControlStateNormal];
     [button1 addTarget:self action:@selector(buttonAction1:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -44,7 +44,7 @@
     
     UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake(135, 500, 100, 50)];
     [button3 setBackgroundColor:[UIColor greenColor]];
-    [self.view addSubview:button3];
+//    [self.view addSubview:button3];
     [button3 setTitle:@"4" forState:UIControlStateNormal];
     [button3 addTarget:self action:@selector(buttonAction3:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -56,7 +56,7 @@
     
     UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(270, 500, 100, 50)];
     [button5 setBackgroundColor:[UIColor greenColor]];
-    [self.view addSubview:button5];
+//    [self.view addSubview:button5];
     [button5 setTitle:@"36" forState:UIControlStateNormal];
     [button5 addTarget:self action:@selector(buttonAction5:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -76,6 +76,7 @@
 
 - (void)buttonAction:(UIButton *)button {
     [self.addCoinAnimationManager addCoins:1];
+    [self addPopTask:1];
 }
 
 - (void)buttonAction1:(UIButton *)button {
@@ -84,6 +85,7 @@
 
 - (void)buttonAction2:(UIButton *)button {
     [self.addCoinAnimationManager addCoins:4];
+    [self addPopTask:4];
 }
 
 - (void)buttonAction3:(UIButton *)button {
@@ -92,6 +94,7 @@
 
 - (void)buttonAction4:(UIButton *)button {
     [self.addCoinAnimationManager addCoins:36];
+    [self addPopTask:36];
 }
 
 - (void)buttonAction5:(UIButton *)button {
@@ -99,16 +102,26 @@
 }
 
 - (void)dismiss {
+    [self.addCoinAnimationManager stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark AddCoinAnimationManagerDelegate
-- (void)AddCoinAllAnimationDidFinished {
-    
+#pragma mark Private
+- (void)addPopTask:(NSInteger)coins {
+    static NSInteger i = 0;
+    i++;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if(0 == i % 5) {
+            [self.addCoinAnimationManager removeCoins:coins];
+        } else {
+            [self.addCoinAnimationManager popCoins:coins];
+        }
+    });
 }
 
-- (void)AddCoinPopAnimationDidFinished {
-    
+#pragma mark AddCoinAnimationManagerDelegate
+- (void)AddCoinPopAnimationDidFinished:(NSInteger)coinNumber {
+    NSLog(@"%d", coinNumber);
 }
 
 #pragma mark AddCoinAnimationManager
@@ -117,6 +130,7 @@
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
         _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
+//        _addCoinAnimationManager.maxDisplayAmount = 4;
         _addCoinAnimationManager.delegate = self;
     }
     return _addCoinAnimationManager;

@@ -15,9 +15,13 @@
 
 - (void)addCoins:(NSInteger)coinNumber;
 - (void)popCoins:(NSInteger)coinNumber;
+- (void)removeCoins:(NSInteger)coinNumber;
+
+- (void)stop;
 
 @property (nonatomic, assign) CGRect                            snapRect;
 @property (nonatomic, assign) CGRect                            displayRect;
+@property (nonatomic, assign) NSUInteger                        maxDisplayAmount;
 
 @property (nonatomic, weak  ) id<AddCoinAnimationManagerDelegate>  delegate;
 
@@ -25,7 +29,6 @@
 
 @protocol AddCoinAnimationManagerDelegate <NSObject>
 
-- (void)AddCoinPopAnimationDidFinished;
-- (void)AddCoinAllAnimationDidFinished;
+- (void)AddCoinPopAnimationDidFinished:(NSInteger)coinNumber;
 
 @end

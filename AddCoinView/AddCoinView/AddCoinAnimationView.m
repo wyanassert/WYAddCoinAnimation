@@ -92,6 +92,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
 }
 
 - (void)willConfirmCoinAdded:(NSInteger)coinNumber {
+    [self addWillPopOrRemovetag:coinNumber];
     [self.coinPopController prepareForCoinsBirth:coinNumber];
 }
 
@@ -128,7 +129,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     NSUInteger result = 0;
     for(UIView *view in self.subviews) {
         if([view isKindOfClass:[CoinAnimationItemView class]]) {
-            if(!((CoinAnimationItemView *)view).hasAttached) {
+            if(!((CoinAnimationItemView *)view).hasAttached && !((CoinAnimationItemView *)view).isSigned) {
                 result ++;
             }
         }
@@ -186,7 +187,7 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     for(UIView *view in self.subviews) {
         if([view isKindOfClass:[CoinAnimationItemView class]]) {
             CoinAnimationItemView *item = (CoinAnimationItemView *)view;
-            if(!item.hasAttached) {
+            if(!item.hasAttached && item.isSigned) {
                 if(0 >= number) {
                     break;
                 }
@@ -212,6 +213,18 @@ static NSString *CoinBornControllerIdentifer = @"CoinBornControllerIdentifer";
     };
     [self.popItemBehavior addItem:item];
     [self.animator addBehavior:snapBehavior];
+}
+
+- (void)addWillPopOrRemovetag:(NSInteger)coinsNumber {
+    for(CoinAnimationItemView *item in self.subviews) {
+        if(!item.isSigned) {
+            item.isSigned = YES;
+            coinsNumber --;
+            if(coinsNumber <= 0) {
+                break;
+            }
+        }
+    }
 }
 
 

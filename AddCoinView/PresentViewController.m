@@ -127,7 +127,7 @@
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
         _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
-        _addCoinAnimationManager.maxDisplayAmount = 4;
+        _addCoinAnimationManager.maxDisplayAmount = 20;
         _addCoinAnimationManager.delegate = self;
     }
     return _addCoinAnimationManager;

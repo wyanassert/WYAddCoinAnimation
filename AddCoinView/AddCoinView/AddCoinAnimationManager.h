@@ -15,9 +15,11 @@
 
 - (void)addCoins:(NSInteger)coinNumber;
 - (void)popCoins:(NSInteger)coinNumber;
+- (void)removeCoins:(NSInteger)coinNumber;
 
 @property (nonatomic, assign) CGRect                            snapRect;
 @property (nonatomic, assign) CGRect                            displayRect;
+@property (nonatomic, assign) NSUInteger                        maxDisplayAmount;
 
 @property (nonatomic, weak  ) id<AddCoinAnimationManagerDelegate>  delegate;
 

@@ -14,6 +14,7 @@
     if(self = [super init]) {
         self.hasAttached = NO;
         self.hasContacted = NO;
+        self.isSigned = NO;
     }
     return self;
 }

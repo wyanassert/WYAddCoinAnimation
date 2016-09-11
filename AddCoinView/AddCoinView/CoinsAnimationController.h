@@ -10,7 +10,7 @@
 
 @protocol CoinsAnimationControllerDelegate;
 
-@interface CoinsAmimationController : NSObject
+@interface CoinsAnimationController : NSObject
 
 @property (nonatomic, assign) NSInteger                         totalCoinsNumber;
 @property (nonatomic, assign) NSInteger                         notBornCoinsNumer;

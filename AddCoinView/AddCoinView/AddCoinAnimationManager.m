@@ -34,8 +34,7 @@
 }
 
 - (void)dealloc {
-    [self.addCoinAnimationView stop];
-    [self.addCoinAnimationView removeFromSuperview];
+    [self stop];
 }
 
 
@@ -98,6 +97,11 @@
             }
         }
     });
+}
+
+- (void)stop {
+    [self.addCoinAnimationView stop];
+    [self.addCoinAnimationView removeFromSuperview];
 }
 
 #pragma mark private

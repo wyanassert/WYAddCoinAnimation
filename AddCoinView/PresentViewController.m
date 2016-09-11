@@ -102,6 +102,7 @@
 }
 
 - (void)dismiss {
+    [self.addCoinAnimationManager stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -110,7 +111,7 @@
     static NSInteger i = 0;
     i++;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(0) {
+        if(0 == i % 5) {
             [self.addCoinAnimationManager removeCoins:coins];
         } else {
             [self.addCoinAnimationManager popCoins:coins];

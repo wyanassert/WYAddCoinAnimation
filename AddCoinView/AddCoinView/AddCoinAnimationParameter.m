@@ -45,7 +45,7 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)randomCoinBirthmagnitude {
-    return coinFallingRandom(0.10, 0);
+    return coinFallingRandom(0.06, 0.04);
 }
 
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom {

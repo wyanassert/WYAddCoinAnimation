@@ -192,7 +192,9 @@
     if(self.needToRemoveCount > 0) {
         NSInteger tmp = self.needToRemoveCount;
         self.needToRemoveCount = 0;
-        [self removeCoins:tmp];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self removeCoins:tmp];
+        });
     }
 }
 

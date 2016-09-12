@@ -157,10 +157,10 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 #pragma mark - Private
 - (void)configureGeometryInfo {
     CGRect rect = self.displayRect;
-    self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width / 3.0,
-                                    rect.origin.y + rect.size.height / 3.0,
-                                    rect.size.width / 3.0,
-                                    rect.size.height / 3.0);
+    self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width * 2.0 / 5.0,
+                                    rect.origin.y + rect.size.height * 2.0 / 5.0,
+                                    rect.size.width / 5.0,
+                                    rect.size.height / 5.0);
     
     self.bouncePositionY = CGRectGetMaxY(rect);
 }
@@ -182,7 +182,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
         
-        view.alpha = 0.1;
+        view.alpha = 0.7;
         [self addSubview:view];
         
         [self.itemBehavior addItem:view];
@@ -340,12 +340,12 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
             NSArray *items = [weakItemBehavior.items copy];
             //
             for (CoinAnimationItemView *item in items) {
-                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
+                if (item.alpha > 0.98 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
                     if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
                         [weakItemBehavior removeItem:item];
                     }
                 } else {
-                    item.alpha += 0.1;
+                    item.alpha += 0.01;
                 }
             }
             // no longer need pushbehavior after birth

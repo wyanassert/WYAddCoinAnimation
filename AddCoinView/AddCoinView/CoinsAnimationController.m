@@ -57,7 +57,7 @@
     if (!self.displayLink || self.displayLink.paused) {
         [self.displayLink invalidate];
         self.displayLink =  [CADisplayLink displayLinkWithTarget:self selector:@selector(update:)];
-        self.displayLink.frameInterval = 2;
+        self.displayLink.frameInterval = 4;
 //        NSLog(@"create_display_link");
     }
 }

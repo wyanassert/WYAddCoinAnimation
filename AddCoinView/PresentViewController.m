@@ -110,8 +110,9 @@
 - (void)addPopTask:(NSInteger)coins {
     static NSInteger i = 0;
     i++;
+    NSInteger tmp = i;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(0 == i % 5) {
+        if(0 == tmp % 2) {
             [self.addCoinAnimationManager removeCoins:coins];
         } else {
             [self.addCoinAnimationManager popCoins:coins];

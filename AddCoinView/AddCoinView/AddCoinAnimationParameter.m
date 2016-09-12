@@ -40,11 +40,12 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)randomCoinBirthAngle {
-    return coinFallingRandom(- M_PI * 3.0 / 4, M_PI / 2);
+//    return coinFallingRandom(- M_PI * 3.0 / 4, M_PI / 2);
+    return coinFallingRandom(-M_PI, 2 * M_PI);
 }
 
 + (float)randomCoinBirthmagnitude {
-    return coinFallingRandom(0.2, 0);
+    return coinFallingRandom(0.03, 0);
 }
 
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom {
@@ -81,7 +82,7 @@ float coinFallingRandom(float min, float length) {
 
 #pragma mark - Private
 + (CGFloat)minCoinWidth {
-    return 24.0;
+    return 36.0;
 }
 + (CGFloat)maxCoinWidth {
     return 36.0;

@@ -95,6 +95,11 @@
             } else {
                 [self actuallyRemoveCoins:actuallyCoinNumber];
             }
+            if(self.needToPlayCount > 0) {
+                [self addCoins:0];
+            } else if(self.needToPopCount > 0) {
+                [self popCoins:0];
+            }
         }
     });
 }

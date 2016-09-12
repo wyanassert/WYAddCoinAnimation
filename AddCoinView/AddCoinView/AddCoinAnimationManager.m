@@ -45,7 +45,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger number = coinNumber;
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
-        NSLog(@"exist: %d", existsCoinAmount);
         NSInteger maxDisplayAmount = self.maxDisplayAmount ? self.maxDisplayAmount : [AddCoinAnimationParameter getMaxDisplayAmount];
         NSUInteger maxAddAmount = maxDisplayAmount - existsCoinAmount;
         if(maxAddAmount <= 0) {
@@ -90,11 +89,9 @@
             self.needToPlayCount -= coinNumber;
             return ;
         } else {
-            NSLog(@"needToPlay: %d", self.needToPlayCount);
             actuallyCoinNumber -= self.needToPlayCount;
             self.needToPlayCount = 0;
             NSInteger existCoinNumber = [self.addCoinAnimationView numberOfCoinItems];
-            NSLog(@"remove: %d, exist: %d, ", coinNumber, existCoinNumber);
             if(existCoinNumber < actuallyCoinNumber) {
                 self.needToRemoveCount += actuallyCoinNumber - existCoinNumber;
                 [self actuallyRemoveCoins:existCoinNumber];

@@ -159,7 +159,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 - (void)configureGeometryInfo {
     CGRect rect = self.displayRect;
     self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width * 2.0 / 5.0,
-                                    rect.origin.y + rect.size.height * 1.0 / 5.0,
+                                    rect.origin.y + rect.size.height * 2.0 / 5.0,
                                     rect.size.width / 5.0,
                                     rect.size.height / 5.0);
     

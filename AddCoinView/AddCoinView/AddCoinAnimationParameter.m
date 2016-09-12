@@ -61,7 +61,7 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)gravityMagnitude {
-    return coinFallingRandom(0.4, 0);
+    return 0.3;
 }
 
 + (float)randomCycleRotation {

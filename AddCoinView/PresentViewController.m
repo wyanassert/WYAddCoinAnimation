@@ -102,7 +102,7 @@
 }
 
 - (void)dismiss {
-    [self.addCoinAnimationManager stop];
+//    [self.addCoinAnimationManager stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -132,6 +132,7 @@
         _addCoinAnimationManager.displayRect = CGRectMake(250, 300, 100, 100);
 //        _addCoinAnimationManager.maxDisplayAmount = 4;
         _addCoinAnimationManager.delegate = self;
+        _addCoinAnimationManager.associatedView = self.view;
     }
     return _addCoinAnimationManager;
 }

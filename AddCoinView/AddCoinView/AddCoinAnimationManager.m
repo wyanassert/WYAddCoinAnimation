@@ -117,11 +117,10 @@
     
     [self.addCoinAnimationView willAddCoins:actuallyBornCoin];
     
-    UIWindow *window = ((AppDelegate *)[UIApplication sharedApplication].delegate).window;
+    
     if (!self.addCoinAnimationView.superview) {
-        
 //        NSLog(@"coin_falling_view_no_superview");
-        [window addSubview:self.addCoinAnimationView];
+        [self.associatedView addSubview:self.addCoinAnimationView];
     }
     
     [self.addCoinAnimationView addCoins:actuallyBornCoin];
@@ -191,6 +190,14 @@
         _addCoinAnimationView.delegate = self;
     }
     return _addCoinAnimationView;
+}
+
+- (UIView *)associatedView {
+    if(_associatedView) {
+        return _associatedView;
+    } else {
+        return((AppDelegate *)[UIApplication sharedApplication].delegate).window;
+    }
 }
 
 

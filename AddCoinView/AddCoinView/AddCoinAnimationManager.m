@@ -19,6 +19,7 @@
 @property (nonatomic, assign) NSUInteger             needToPopCount;
 @property (nonatomic, assign) NSUInteger             needToRemoveCount;
 
+@property (nonatomic, assign) NSInteger              actuallyAddNum;
 @property (nonatomic, assign) NSInteger              actuallyPopNum;
 
 @end
@@ -30,6 +31,7 @@
         self.needToPlayCount = 0;
         self.needToPopCount = 0;
         self.needToRemoveCount = 0;
+        self.actuallyAddNum = 0;
         self.actuallyPopNum = 0;
     }
     return self;
@@ -47,7 +49,7 @@
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
         NSInteger maxDisplayAmount = self.maxDisplayAmount ? self.maxDisplayAmount : [AddCoinAnimationParameter getMaxDisplayAmount];
         NSUInteger maxAddAmount = maxDisplayAmount - existsCoinAmount;
-        if(maxAddAmount <= 0) {
+        if(maxAddAmount <= 0 || self.actuallyAddNum >= maxDisplayAmount) {
             self.needToPlayCount += number;
             return ;
         } else if(maxAddAmount < number) {
@@ -119,7 +121,7 @@
     if (coinNumber <= 0 ) {
         return;
     }
-    
+    self.actuallyAddNum += coinNumber;
     NSInteger actuallyBornCoin = coinNumber;
 //    NSLog(@"coin number:%@, ActuallyBornCoin:%@",@(coinNumber),@(actuallyBornCoin));
     
@@ -140,7 +142,7 @@
     if (coinNumber <= 0 ) {
         return;
     }
-    
+    self.actuallyAddNum -= coinNumber;
     if(self.actuallyPopNum) {
         self.actuallyPopNum += coinNumber;
     } else {

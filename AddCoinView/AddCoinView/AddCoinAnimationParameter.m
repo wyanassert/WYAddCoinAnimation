@@ -41,11 +41,11 @@ float coinFallingRandom(float min, float length) {
 
 + (float)randomCoinBirthAngle {
 //    return coinFallingRandom(- M_PI * 3.0 / 4, M_PI / 2);
-    return coinFallingRandom(-M_PI, 2 * M_PI);
+    return coinFallingRandom(-3.0 * M_PI / 4, M_PI_2);
 }
 
 + (float)randomCoinBirthmagnitude {
-    return coinFallingRandom(0.03, 0);
+    return coinFallingRandom(0.10, 0);
 }
 
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom {
@@ -56,12 +56,24 @@ float coinFallingRandom(float min, float length) {
     return 3.0 / 4;
 }
 
++ (float)randomCycleTime {
+    return coinFallingRandom(0.3, 0.3);
+}
+
++ (float)gravityMagnitude {
+    return coinFallingRandom(0.4, 0);
+}
+
++ (float)randomCycleRotation {
+    return 0;
+}
+
 
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:5];
-    for(int i = 0; i < 10; i++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"coin_%01d", i]];
+    for(int i = 0; i < 5; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"coin%01d", i]];
         [array addObject:image];
     }
     return [array copy];

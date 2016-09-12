@@ -18,6 +18,9 @@
 + (float)randomCoinBirthAngle;
 + (float)randomCoinBirthmagnitude;
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom;
++ (float)randomCycleTime;
++ (float)randomCycleRotation;
++ (float)gravityMagnitude;
 
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray;

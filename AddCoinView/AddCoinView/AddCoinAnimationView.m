@@ -289,7 +289,11 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         _isPopAnimationWillStop = NO;
     } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
         _isPopAnimationWillStop = YES;
-    } 
+    } else if([identifer isEqualToString:CoinRemoveControllerIdentifier]) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(removeActionFinished)]) {
+            [self.delegate removeActionFinished];
+        }
+    }
 }
 
 

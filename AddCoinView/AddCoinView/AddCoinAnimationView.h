@@ -17,6 +17,8 @@
 - (void)popCoinAnimationFinished;
 - (void)birthCoinAnimationFinished;
 
+- (void)removeActionFinished;
+
 @end
 
 @interface AddCoinAnimationView : UIView

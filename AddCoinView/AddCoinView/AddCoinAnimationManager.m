@@ -17,6 +17,7 @@
 @property (nonatomic, strong) AddCoinAnimationView  *addCoinAnimationView;
 @property (nonatomic, assign) NSUInteger             needToPlayCount;
 @property (nonatomic, assign) NSUInteger             needToPopCount;
+@property (nonatomic, assign) NSUInteger             needToRemoveCount;
 
 @property (nonatomic, assign) NSInteger              actuallyPopNum;
 
@@ -28,6 +29,7 @@
     if(self = [super init]) {
         self.needToPlayCount = 0;
         self.needToPopCount = 0;
+        self.needToRemoveCount = 0;
         self.actuallyPopNum = 0;
     }
     return self;
@@ -43,6 +45,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger number = coinNumber;
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
+        NSLog(@"exist: %d", existsCoinAmount);
         NSInteger maxDisplayAmount = self.maxDisplayAmount ? self.maxDisplayAmount : [AddCoinAnimationParameter getMaxDisplayAmount];
         NSUInteger maxAddAmount = maxDisplayAmount - existsCoinAmount;
         if(maxAddAmount <= 0) {
@@ -87,10 +90,13 @@
             self.needToPlayCount -= coinNumber;
             return ;
         } else {
+            NSLog(@"needToPlay: %d", self.needToPlayCount);
             actuallyCoinNumber -= self.needToPlayCount;
             self.needToPlayCount = 0;
             NSInteger existCoinNumber = [self.addCoinAnimationView numberOfCoinItems];
+            NSLog(@"remove: %d, exist: %d, ", coinNumber, existCoinNumber);
             if(existCoinNumber < actuallyCoinNumber) {
+                self.needToRemoveCount += actuallyCoinNumber - existCoinNumber;
                 [self actuallyRemoveCoins:existCoinNumber];
             } else {
                 [self actuallyRemoveCoins:actuallyCoinNumber];
@@ -180,6 +186,14 @@
 - (void)birthCoinAnimationFinished {
     if(self.needToPopCount) {
         [self popCoins:0];
+    }
+}
+
+- (void)removeActionFinished {
+    if(self.needToRemoveCount > 0) {
+        NSInteger tmp = self.needToRemoveCount;
+        self.needToRemoveCount = 0;
+        [self removeCoins:tmp];
     }
 }
 

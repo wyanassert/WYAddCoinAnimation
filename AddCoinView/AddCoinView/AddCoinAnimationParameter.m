@@ -45,7 +45,7 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)randomCoinBirthmagnitude {
-    return coinFallingRandom(0.06, 0.04);
+    return coinFallingRandom(0.20, 0.10);
 }
 
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom {
@@ -61,7 +61,7 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)gravityMagnitude {
-    return 0.3;
+    return 0.6;
 }
 
 + (float)randomCycleRotation {
@@ -69,7 +69,7 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)getBirthDuration {
-    return 0.6;
+    return 0.5;
 }
 
 
@@ -98,10 +98,20 @@ float coinFallingRandom(float min, float length) {
 
 #pragma mark - Private
 + (CGFloat)minCoinWidth {
-    return 36.0;
+    if([UIScreen mainScreen].bounds.size.width > 375) {
+        return 48.0;
+    }
+    else {
+        return 36.0;
+    }
 }
 + (CGFloat)maxCoinWidth {
-    return 36.0;
+    if([UIScreen mainScreen].bounds.size.width > 375) {
+        return 48.0;
+    }
+    else {
+        return 36.0;
+    }
 }
 
 + (float)coinPileWidth {

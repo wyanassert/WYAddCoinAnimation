@@ -8,7 +8,29 @@
 
 #import "AddCoinAnimationParameter.h"
 
+@interface AddCoinAnimationParameter ()
+
+@property (nonatomic, assign) CoinBirthAreaType type;
+
+@end
+
 @implementation AddCoinAnimationParameter
+
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    static AddCoinAnimationParameter *instance;
+    dispatch_once(&onceToken, ^{
+        instance = [[AddCoinAnimationParameter alloc] init];
+        if([UIScreen mainScreen].bounds.size.width > 375) {
+            instance.type = CoinBirthAreaLarge;
+        } else if([UIScreen mainScreen].bounds.size.width > 320)  {
+            instance.type = CoinBirthAreaMedium;
+        } else {
+            instance.type = CoinBirthAreaSmall;
+        }
+    });
+    return instance;
+}
 
 float coinFallingRandom(float min, float length) {
     return arc4random() % 100 * 1.0 / 100.0 * length + min;
@@ -16,7 +38,6 @@ float coinFallingRandom(float min, float length) {
 
 #pragma mark - Coin Birth
 + (float)coinBirthDuration:(NSInteger)coinNumber {
-    
     if (coinNumber * 1.0 / 100 < 1.5) {
         return 1.5;
     } else {
@@ -40,12 +61,24 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)randomCoinBirthAngle {
-//    return coinFallingRandom(- M_PI * 3.0 / 4, M_PI / 2);
     return coinFallingRandom(-3.0 * M_PI / 4, M_PI_2);
 }
 
 + (float)randomCoinBirthmagnitude {
-    return coinFallingRandom(0.20, 0.10);
+    switch ([AddCoinAnimationParameter sharedInstance].type) {
+        case CoinBirthAreaSmall: {
+            return coinFallingRandom(0.06, 0.04);
+            break;
+        }
+        case CoinBirthAreaMedium: {
+            return coinFallingRandom(0.08, 0.05);
+            break;
+        }
+        case CoinBirthAreaLarge: {
+            return coinFallingRandom(0.12, 0.08);
+            break;
+        }
+    }
 }
 
 + (float)randomStopYPositionTop:(CGFloat)top andBottom:(CGFloat)bottom {
@@ -61,7 +94,20 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)gravityMagnitude {
-    return 0.6;
+    switch ([AddCoinAnimationParameter sharedInstance].type) {
+        case CoinBirthAreaSmall: {
+            return 0.40;
+            break;
+        }
+        case CoinBirthAreaMedium: {
+            return 0.50;
+            break;
+        }
+        case CoinBirthAreaLarge: {
+            return 0.52;
+            break;
+        }
+    }
 }
 
 + (float)randomCycleRotation {

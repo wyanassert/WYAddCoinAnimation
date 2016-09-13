@@ -65,6 +65,10 @@
     [dismissButton setTitle:@"dismiss" forState:UIControlStateNormal];
     [self.view addSubview:dismissButton];
     [dismissButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *tmp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    tmp.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:tmp];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,7 +134,7 @@
     if(!_addCoinAnimationManager) {
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
-        _addCoinAnimationManager.displayRect = CGRectMake(150, 100, 100, 100);
+        _addCoinAnimationManager.displayRect = CGRectMake(0, 0, 300, 300);
         _addCoinAnimationManager.maxDisplayAmount = 20;
         _addCoinAnimationManager.delegate = self;
         _addCoinAnimationManager.associatedView = self.view;

@@ -6,7 +6,16 @@
 //
 
 #import <UIKit/UIKit.h>
+
+typedef NS_ENUM(NSUInteger, CoinBirthAreaType) {
+    CoinBirthAreaSmall,     //100x100
+    CoinBirthAreaMedium,    //120x120
+    CoinBirthAreaLarge      //150x150
+};
+
 @interface AddCoinAnimationParameter : NSObject
+
++ (instancetype)sharedInstance;
 
 #pragma mark - Coin Birth
 + (float)coinBirthDuration:(NSInteger)coinNumber;

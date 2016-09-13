@@ -21,6 +21,7 @@
 + (float)randomCycleTime;
 + (float)randomCycleRotation;
 + (float)gravityMagnitude;
++ (float)getBirthDuration;
 
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray;

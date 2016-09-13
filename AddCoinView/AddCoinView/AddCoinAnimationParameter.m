@@ -68,6 +68,10 @@ float coinFallingRandom(float min, float length) {
     return 0;
 }
 
++ (float)getBirthDuration {
+    return 0.6;
+}
+
 
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray {

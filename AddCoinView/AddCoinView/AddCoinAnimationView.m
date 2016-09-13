@@ -174,8 +174,6 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
     for (NSInteger index = 0; index < number; index ++) {
         CoinAnimationItemView *view = [[CoinAnimationItemView alloc]init];
         
-        view.transform = CGAffineTransformRotate(view.transform, [AddCoinAnimationParameter randomCycleRotation]);
-        
         view.animationImages = [AddCoinAnimationParameter getAnimateImageArray];
         view.animationDuration = [AddCoinAnimationParameter randomCycleTime];
         view.animationRepeatCount = 0;
@@ -186,7 +184,6 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
         
-        view.alpha = 0.7;
         [self addSubview:view];
         
         [self.itemBehavior addItem:view];
@@ -197,6 +194,11 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         [pushBehavior setAngle: [AddCoinAnimationParameter randomCoinBirthAngle] magnitude:[AddCoinAnimationParameter randomCoinBirthmagnitude]];
         [self.animator addBehavior:pushBehavior];
         [self.pushBehaviors addObject:pushBehavior];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, [AddCoinAnimationParameter getBirthDuration] * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self.itemBehavior removeItem:view];
+            [self.gravityBehavior removeItem:view];
+        });
     }
     
 }
@@ -346,19 +348,18 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
                 NSLog(@"weakself is nil");
                 return;
             }
-            // fade in when born and fade out when collision
-            NSArray *items = [weakItemBehavior.items copy];
+    
             //
-            for (CoinAnimationItemView *item in items) {
-                if (item.alpha > 0.98 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
-                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
-                        [weakItemBehavior removeItem:item];
-                        [weakSelf.gravityBehavior removeItem:item];
-                    }
-                } else {
-                    item.alpha += 0.01;
-                }
-            }
+//            for (CoinAnimationItemView *item in weakItemBehavior.items) {
+//                if (item.alpha > 0.98 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
+//                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
+//                        [weakItemBehavior removeItem:item];
+//                        [weakSelf.gravityBehavior removeItem:item];
+//                    }
+//                } else {
+//                    item.alpha += 0.01;
+//                }
+//            }
             // no longer need pushbehavior after birth
             for (UIPushBehavior *pushBehavior in weakSelf.pushBehaviors) {
                 [weakSelf.animator removeBehavior:pushBehavior];

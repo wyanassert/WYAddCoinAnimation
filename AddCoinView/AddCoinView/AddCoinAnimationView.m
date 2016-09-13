@@ -23,6 +23,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 @property (assign, nonatomic) CGFloat                    bouncePositionY;
 
 @property (strong, nonatomic) UIDynamicAnimator         *animator;
+@property (nonatomic, strong) UIGravityBehavior         *gravityBehavior;
 @property (strong, nonatomic) UIDynamicItemBehavior     *itemBehavior;
 @property (strong, nonatomic) UIDynamicItemBehavior     *popItemBehavior;
 
@@ -157,10 +158,10 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 #pragma mark - Private
 - (void)configureGeometryInfo {
     CGRect rect = self.displayRect;
-    self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width / 3.0,
-                                    rect.origin.y + rect.size.height / 3.0,
-                                    rect.size.width / 3.0,
-                                    rect.size.height / 3.0);
+    self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width * 2.0 / 5.0,
+                                    rect.origin.y + rect.size.height * 2.0 / 5.0,
+                                    rect.size.width / 5.0,
+                                    rect.size.height / 5.0);
     
     self.bouncePositionY = CGRectGetMaxY(rect);
 }
@@ -172,8 +173,9 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
     // add new coin to dynamic system
     for (NSInteger index = 0; index < number; index ++) {
         CoinAnimationItemView *view = [[CoinAnimationItemView alloc]init];
+        
         view.animationImages = [AddCoinAnimationParameter getAnimateImageArray];
-        view.animationDuration = 0.5f;
+        view.animationDuration = [AddCoinAnimationParameter randomCycleTime];
         view.animationRepeatCount = 0;
         [view startAnimating];
         
@@ -182,16 +184,21 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
         
-        view.alpha = 0.1;
         [self addSubview:view];
         
         [self.itemBehavior addItem:view];
+        [self.gravityBehavior addItem:view];
         
         // give each a up instant push with random angle
         UIPushBehavior *pushBehavior = [[UIPushBehavior alloc]initWithItems:@[view] mode:UIPushBehaviorModeInstantaneous];
         [pushBehavior setAngle: [AddCoinAnimationParameter randomCoinBirthAngle] magnitude:[AddCoinAnimationParameter randomCoinBirthmagnitude]];
         [self.animator addBehavior:pushBehavior];
         [self.pushBehaviors addObject:pushBehavior];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, [AddCoinAnimationParameter getBirthDuration] * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self.itemBehavior removeItem:view];
+            [self.gravityBehavior removeItem:view];
+        });
     }
     
 }
@@ -284,7 +291,11 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         _isPopAnimationWillStop = NO;
     } else if([identifer isEqualToString:CoinPopControllerIdentifer]) {
         _isPopAnimationWillStop = YES;
-    } 
+    } else if([identifer isEqualToString:CoinRemoveControllerIdentifier]) {
+        if(self.delegate && [self.delegate respondsToSelector:@selector(removeActionFinished)]) {
+            [self.delegate removeActionFinished];
+        }
+    }
 }
 
 
@@ -318,6 +329,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         _animator.delegate = self;
         [_animator addBehavior:self.itemBehavior];
         [_animator addBehavior:self.popItemBehavior];
+        [_animator addBehavior:self.gravityBehavior];
     }
     return _animator;
 }
@@ -336,18 +348,18 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
                 NSLog(@"weakself is nil");
                 return;
             }
-            // fade in when born and fade out when collision
-            NSArray *items = [weakItemBehavior.items copy];
+    
             //
-            for (CoinAnimationItemView *item in items) {
-                if (item.alpha > 0.9 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
-                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
-                        [weakItemBehavior removeItem:item];
-                    }
-                } else {
-                    item.alpha += 0.1;
-                }
-            }
+//            for (CoinAnimationItemView *item in weakItemBehavior.items) {
+//                if (item.alpha > 0.98 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
+//                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
+//                        [weakItemBehavior removeItem:item];
+//                        [weakSelf.gravityBehavior removeItem:item];
+//                    }
+//                } else {
+//                    item.alpha += 0.01;
+//                }
+//            }
             // no longer need pushbehavior after birth
             for (UIPushBehavior *pushBehavior in weakSelf.pushBehaviors) {
                 [weakSelf.animator removeBehavior:pushBehavior];
@@ -415,6 +427,14 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         _coinRemoveController.delegate = self;
     }
     return _coinRemoveController;
+}
+
+- (UIGravityBehavior *)gravityBehavior {
+    if (!_gravityBehavior) {
+        _gravityBehavior = [[UIGravityBehavior alloc]init];
+        _gravityBehavior.magnitude = [AddCoinAnimationParameter gravityMagnitude];
+    }
+    return _gravityBehavior;
 }
 
 

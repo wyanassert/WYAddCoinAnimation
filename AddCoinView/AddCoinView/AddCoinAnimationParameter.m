@@ -61,7 +61,20 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)randomCoinBirthAngle {
-    return coinFallingRandom(-3.0 * M_PI / 4, M_PI_2);
+    switch ([AddCoinAnimationParameter sharedInstance].type) {
+        case CoinBirthAreaSmall: {
+            return coinFallingRandom(-2.0 * M_PI / 3, M_PI / 3.0);
+            break;
+        }
+        case CoinBirthAreaMedium: {
+            return coinFallingRandom(-2.0 * M_PI / 3, M_PI / 3.0);
+            break;
+        }
+        case CoinBirthAreaLarge: {
+            return coinFallingRandom(-3.0 * M_PI / 4, M_PI_2);
+            break;
+        }
+    }
 }
 
 + (float)randomCoinBirthmagnitude {
@@ -71,7 +84,7 @@ float coinFallingRandom(float min, float length) {
             break;
         }
         case CoinBirthAreaMedium: {
-            return coinFallingRandom(0.08, 0.05);
+            return coinFallingRandom(0.07, 0.05);
             break;
         }
         case CoinBirthAreaLarge: {
@@ -115,7 +128,7 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)getBirthDuration {
-    return 0.5;
+    return coinFallingRandom(0.3, 0.2);
 }
 
 
@@ -145,10 +158,10 @@ float coinFallingRandom(float min, float length) {
 #pragma mark - Private
 + (CGFloat)minCoinWidth {
     if([UIScreen mainScreen].bounds.size.width > 375) {
-        return 48.0;
+        return 42.0;
     }
     else {
-        return 36.0;
+        return 28.0;
     }
 }
 + (CGFloat)maxCoinWidth {

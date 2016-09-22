@@ -37,6 +37,8 @@
 - (void)willRemoveCoins:(NSInteger)coinNumber;
 - (void)removeCoins:(NSInteger)coinNumber;
 
+- (void)setCoinsHide:(BOOL)hide;
+
 - (void)stop;
 
 - (NSUInteger)numberOfCoinItems;

@@ -70,7 +70,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger number = coinNumber;
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
-        if(number >= existsCoinAmount) {
+        if(number > existsCoinAmount) {
             self.needToPopCount += number - existsCoinAmount;
             [self actuallyPopCoins:existsCoinAmount];
         } else if(number + self.needToPopCount >= existsCoinAmount) {
@@ -109,6 +109,10 @@
     });
 }
 
+- (void)setCoinsHide:(BOOL)hide {
+    [self.addCoinAnimationView setCoinsHide:hide];
+}
+
 - (void)stop {
     [self.addCoinAnimationView stop];
     [self.addCoinAnimationView removeFromSuperview];
@@ -142,6 +146,7 @@
     if (coinNumber <= 0 ) {
         return;
     }
+    NSLog(@"actually pop coin : %lu", coinNumber);
     self.actuallyAddNum -= coinNumber;
     if(self.actuallyPopNum) {
         self.actuallyPopNum += coinNumber;
@@ -174,8 +179,15 @@
 
 #pragma mark - CoinsFallingViewDelegate
 - (void)popCoinAnimationFinished {
+    NSLog(@"did Reach Pop Delegate, %lu to pop", (unsigned long)self.needToPopCount);
     if(self.needToPlayCount > 0) {
         [self addCoins:0];
+    }
+    if(self.needToPopCount > 0) {
+        NSLog(@"Did into branch larger than 0");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self popCoins:0];
+        });
     }
     if(self.delegate && [self.delegate respondsToSelector:@selector(AddCoinPopAnimationDidFinished:)]) {
         [self.delegate AddCoinPopAnimationDidFinished:self.actuallyPopNum];
@@ -185,7 +197,10 @@
 }
 
 - (void)birthCoinAnimationFinished {
-    if(self.needToPopCount) {
+    if(self.needToPlayCount > 0) {
+        [self addCoins:0];
+    }
+    if(self.needToPopCount > 0) {
         [self popCoins:0];
     }
 }

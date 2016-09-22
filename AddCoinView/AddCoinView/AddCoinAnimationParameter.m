@@ -128,15 +128,24 @@ float coinFallingRandom(float min, float length) {
 }
 
 + (float)getBirthDuration {
-    return coinFallingRandom(0.3, 0.2);
+    return coinFallingRandom(0.2, 0.2);
 }
 
 
 #pragma mark - Images
 + (NSArray *)getAnimateImageArray {
+    CGFloat tmp = coinFallingRandom(0, 3);
+    NSInteger num = 0;
+    if(tmp < 1) {
+        num = 0;
+    } else if (tmp < 2) {
+        num = 1;
+    } else {
+        num = 2;
+    }
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:5];
     for(int i = 0; i < 5; i++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"coin%01d", i]];
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"coin_%01d_%01d", num, i]];
         [array addObject:image];
     }
     return [array copy];

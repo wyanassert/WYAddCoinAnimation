@@ -159,7 +159,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 - (void)configureGeometryInfo {
     CGRect rect = self.displayRect;
     self.coinBirthRect = CGRectMake(rect.origin.x + rect.size.width * 2.0 / 5.0,
-                                    rect.origin.y + rect.size.height * 2.0 / 5.0,
+                                    rect.origin.y + rect.size.height * 3.0 / 5.0,
                                     rect.size.width / 5.0,
                                     rect.size.height / 5.0);
     
@@ -183,6 +183,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         CGPoint center = [AddCoinAnimationParameter randomPointInRect:self.coinBirthRect];
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
+        view.alpha = 0.4;
         
         [self addSubview:view];
         
@@ -348,18 +349,12 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
                 NSLog(@"weakself is nil");
                 return;
             }
-    
-            //
-//            for (CoinAnimationItemView *item in weakItemBehavior.items) {
-//                if (item.alpha > 0.98 || CGRectGetMaxY(item.frame) >= CGRectGetMaxY(weakSelf.displayRect)) {
-//                    if (CGRectGetMidY(item.frame) < [AddCoinAnimationParameter randomStopYPositionTop:CGRectGetMinY(weakSelf.displayRect) andBottom:CGRectGetMaxY(weakSelf.displayRect)]) {
-//                        [weakItemBehavior removeItem:item];
-//                        [weakSelf.gravityBehavior removeItem:item];
-//                    }
-//                } else {
-//                    item.alpha += 0.01;
-//                }
-//            }
+        
+            for (CoinAnimationItemView *item in weakItemBehavior.items) {
+                if(item.alpha < 1) {
+                    item.alpha += 0.03;
+                }
+            }
             // no longer need pushbehavior after birth
             for (UIPushBehavior *pushBehavior in weakSelf.pushBehaviors) {
                 [weakSelf.animator removeBehavior:pushBehavior];

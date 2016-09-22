@@ -164,6 +164,8 @@
         return ;
     }
     
+    self.actuallyAddNum -= coinNumber;
+    
     [self.addCoinAnimationView willRemoveCoins:coinNumber];
     
     [self.addCoinAnimationView removeCoins:coinNumber];

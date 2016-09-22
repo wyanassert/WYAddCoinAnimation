@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "AddCoinAnimationParameter.h"
 
+static NSUInteger maxOnceRemoveAmount = 20;
+
 @interface AddCoinAnimationManager () <AddCoinAnimationViewDelegate>
 
 @property (nonatomic, strong) AddCoinAnimationView  *addCoinAnimationView;
@@ -70,7 +72,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger number = coinNumber;
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
-        if(number >= existsCoinAmount) {
+        if(number > existsCoinAmount) {
             self.needToPopCount += number - existsCoinAmount;
             [self actuallyPopCoins:existsCoinAmount];
         } else if(number + self.needToPopCount >= existsCoinAmount) {
@@ -109,6 +111,10 @@
     });
 }
 
+- (void)setCoinsHide:(BOOL)hide {
+    [self.addCoinAnimationView setCoinsHide:hide];
+}
+
 - (void)stop {
     [self.addCoinAnimationView stop];
     [self.addCoinAnimationView removeFromSuperview];
@@ -142,6 +148,7 @@
     if (coinNumber <= 0 ) {
         return;
     }
+//    NSLog(@"actually pop coin : %lu", coinNumber);
     self.actuallyAddNum -= coinNumber;
     if(self.actuallyPopNum) {
         self.actuallyPopNum += coinNumber;
@@ -164,6 +171,13 @@
         return ;
     }
     
+    if(coinNumber > maxOnceRemoveAmount) {
+        self.needToRemoveCount += coinNumber - maxOnceRemoveAmount;
+        coinNumber = maxOnceRemoveAmount;
+    }
+    
+    self.actuallyAddNum -= coinNumber;
+    
     [self.addCoinAnimationView willRemoveCoins:coinNumber];
     
     [self.addCoinAnimationView removeCoins:coinNumber];
@@ -172,8 +186,15 @@
 
 #pragma mark - CoinsFallingViewDelegate
 - (void)popCoinAnimationFinished {
+//    NSLog(@"did Reach Pop Delegate, %lu to pop", (unsigned long)self.needToPopCount);
     if(self.needToPlayCount > 0) {
         [self addCoins:0];
+    }
+    if(self.needToPopCount > 0) {
+        //when coin is to much to produce, may pop while coin is not ready to produe, so wait for a while
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self popCoins:0];
+        });
     }
     if(self.delegate && [self.delegate respondsToSelector:@selector(AddCoinPopAnimationDidFinished:)]) {
         [self.delegate AddCoinPopAnimationDidFinished:self.actuallyPopNum];
@@ -183,18 +204,25 @@
 }
 
 - (void)birthCoinAnimationFinished {
-    if(self.needToPopCount) {
+    if(self.needToPlayCount > 0) {
+        [self addCoins:0];
+    }
+    if(self.needToPopCount > 0) {
         [self popCoins:0];
+    }
+    if(self.needToRemoveCount > 0) {
+        NSInteger tmp = self.needToRemoveCount;
+        self.needToRemoveCount = 0;
+        [self removeCoins:tmp];
     }
 }
 
 - (void)removeActionFinished {
+    
     if(self.needToRemoveCount > 0) {
         NSInteger tmp = self.needToRemoveCount;
         self.needToRemoveCount = 0;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self removeCoins:tmp];
-        });
+        [self removeCoins:tmp];
     }
 }
 

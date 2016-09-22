@@ -16,6 +16,7 @@
 - (void)addCoins:(NSInteger)coinNumber;
 - (void)popCoins:(NSInteger)coinNumber;
 - (void)removeCoins:(NSInteger)coinNumber;
+- (void)setCoinsHide:(BOOL)hide;
 
 - (void)stop;
 

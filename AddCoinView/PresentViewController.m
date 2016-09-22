@@ -12,6 +12,7 @@
 @interface PresentViewController () <AddCoinAnimationManagerDelegate>
 
 @property (nonatomic, strong) AddCoinAnimationManager *addCoinAnimationManager;
+@property (nonatomic, strong) NSArray *numberArray;
 
 @end
 
@@ -27,37 +28,37 @@
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 300, 100, 50)];
     [button setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:button];
-    [button setTitle:@"3" forState:UIControlStateNormal];
+    [button setTitle:[NSString stringWithFormat:@"%@", self.numberArray[0]] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button1 = [[UIButton alloc] initWithFrame:CGRectMake(0, 400, 100, 50)];
     [button1 setBackgroundColor:[UIColor greenColor]];
 //    [self.view addSubview:button1];
-    [button1 setTitle:@"3" forState:UIControlStateNormal];
+    [button1 setTitle:[NSString stringWithFormat:@"%@", self.numberArray[0]] forState:UIControlStateNormal];
     [button1 addTarget:self action:@selector(buttonAction1:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button2 = [[UIButton alloc] initWithFrame:CGRectMake(110, 300, 100, 50)];
     [button2 setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:button2];
-    [button2 setTitle:@"12" forState:UIControlStateNormal];
+    [button2 setTitle:[NSString stringWithFormat:@"%@", self.numberArray[1]] forState:UIControlStateNormal];
     [button2 addTarget:self action:@selector(buttonAction2:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button3 = [[UIButton alloc] initWithFrame:CGRectMake(110, 400, 100, 50)];
     [button3 setBackgroundColor:[UIColor greenColor]];
 //    [self.view addSubview:button3];
-    [button3 setTitle:@"12" forState:UIControlStateNormal];
+    [button3 setTitle:[NSString stringWithFormat:@"%@", self.numberArray[1]] forState:UIControlStateNormal];
     [button3 addTarget:self action:@selector(buttonAction3:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button4 = [[UIButton alloc] initWithFrame:CGRectMake(220, 300, 100, 50)];
     [button4 setBackgroundColor:[UIColor redColor]];
     [self.view addSubview:button4];
-    [button4 setTitle:@"48" forState:UIControlStateNormal];
+    [button4 setTitle:[NSString stringWithFormat:@"%@", self.numberArray[2]] forState:UIControlStateNormal];
     [button4 addTarget:self action:@selector(buttonAction4:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *button5 = [[UIButton alloc] initWithFrame:CGRectMake(220, 400, 100, 50)];
     [button5 setBackgroundColor:[UIColor greenColor]];
 //    [self.view addSubview:button5];
-    [button5 setTitle:@"48" forState:UIControlStateNormal];
+    [button5 setTitle:[NSString stringWithFormat:@"%@", self.numberArray[2]] forState:UIControlStateNormal];
     [button5 addTarget:self action:@selector(buttonAction5:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(110, 420, 100, 50)];
@@ -85,30 +86,30 @@
 #pragma mark - Private
 
 - (void)buttonAction:(UIButton *)button {
-    [self.addCoinAnimationManager addCoins:3];
-    [self addPopTask:3];
+    [self.addCoinAnimationManager addCoins:[self.numberArray[0] intValue]];
+    [self addPopTask:[self.numberArray[0] intValue]];
 }
 
 - (void)buttonAction1:(UIButton *)button {
-    [self.addCoinAnimationManager popCoins:3];
+    [self.addCoinAnimationManager popCoins:[self.numberArray[0] intValue]];
 }
 
 - (void)buttonAction2:(UIButton *)button {
-    [self.addCoinAnimationManager addCoins:12];
-    [self addPopTask:12];
+    [self.addCoinAnimationManager addCoins:[self.numberArray[1] intValue]];
+    [self addPopTask:[self.numberArray[1] intValue]];
 }
 
 - (void)buttonAction3:(UIButton *)button {
-    [self.addCoinAnimationManager popCoins:12];
+    [self.addCoinAnimationManager popCoins:[self.numberArray[1] intValue]];
 }
 
 - (void)buttonAction4:(UIButton *)button {
-    [self.addCoinAnimationManager addCoins:48];
-    [self addPopTask:48];
+    [self.addCoinAnimationManager addCoins:[self.numberArray[2] intValue]];
+    [self addPopTask:[self.numberArray[2] intValue]];
 }
 
 - (void)buttonAction5:(UIButton *)button {
-    [self.addCoinAnimationManager popCoins:48];
+    [self.addCoinAnimationManager popCoins:[self.numberArray[2] intValue]];
 }
 
 - (void)dismiss {
@@ -129,7 +130,7 @@
     i++;
     NSInteger tmp = i;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if(0) {
+        if(tmp%2) {
             [self.addCoinAnimationManager removeCoins:coins];
         } else {
             [self.addCoinAnimationManager popCoins:coins];
@@ -153,6 +154,11 @@
         _addCoinAnimationManager.associatedView = self.view;
     }
     return _addCoinAnimationManager;
+}
+
+#pragma mark - Getter 
+- (NSArray *)numberArray {
+    return @[@4, @16, @64];
 }
 
 @end

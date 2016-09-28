@@ -157,10 +157,11 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
 
 - (void)setCoinsHide:(BOOL)hide {
     self.isCoinsHide = hide;
-    if(!self.isCoinsHide) {
-        return ;
-    }
+
     for(CoinAnimationItemView *view in self.subviews) {
+        if(view.isSigned || view.hasAttached) {
+            continue;
+        }
         [view setHidden:hide];
     }
 }
@@ -194,7 +195,7 @@ static NSString *CoinRemoveControllerIdentifier = @"CoinRemoveControllerIdentifi
         CGPoint center = [AddCoinAnimationParameter randomPointInRect:self.coinBirthRect];
         CGRect frame = CGRectMake(center.x - size.width / 2, center.y - size.height / 2, size.width, size.height);
         view.frame = frame;
-        view.alpha = 0.4;
+        view.alpha = 0.6;
         [view setHidden:self.isCoinsHide];
         
         [self addSubview:view];

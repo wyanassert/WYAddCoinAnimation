@@ -75,7 +75,7 @@
     
     UIView *tmp = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
     tmp.backgroundColor = [UIColor greenColor];
-    [self.view addSubview:tmp];
+//    [self.view addSubview:tmp];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -140,7 +140,7 @@
 
 #pragma mark AddCoinAnimationManagerDelegate
 - (void)AddCoinPopAnimationDidFinished:(NSInteger)coinNumber {
-    NSLog(@"%d", coinNumber);
+//    NSLog(@"%d", coinNumber);
 }
 
 #pragma mark AddCoinAnimationManager
@@ -149,7 +149,7 @@
         _addCoinAnimationManager = [[AddCoinAnimationManager alloc] init];
         _addCoinAnimationManager.snapRect = CGRectMake(300, 0, 20, 20);
         _addCoinAnimationManager.displayRect = CGRectMake(0, 0, 300, 300);
-        _addCoinAnimationManager.maxDisplayAmount = 40;
+        _addCoinAnimationManager.maxDisplayAmount = 20;
         _addCoinAnimationManager.delegate = self;
         _addCoinAnimationManager.associatedView = self.view;
     }
@@ -158,7 +158,7 @@
 
 #pragma mark - Getter 
 - (NSArray *)numberArray {
-    return @[@4, @16, @64];
+    return @[@4, @20, @80];
 }
 
 @end

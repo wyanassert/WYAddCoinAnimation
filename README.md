@@ -3,7 +3,7 @@
 #### Produce some coins and then gather coins into a point
 
 
-	![demo](demo.gif)
+![demo](demo.gif)
 
 ----
 ## how to use:

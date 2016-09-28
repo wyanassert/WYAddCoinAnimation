@@ -1,6 +1,7 @@
 # WYAddCoinAnimation
 
 #### Produce some coins and then gather coins into a point
+	[![preview]](http://recordit.co/mvkAhNwBcx)
 ----
 ## how to use:
 1. drag the directory `AddCoinView` into your project.

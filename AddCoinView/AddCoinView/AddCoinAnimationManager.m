@@ -14,7 +14,10 @@
 
 static NSUInteger maxOnceRemoveAmount = 20;
 
-@interface AddCoinAnimationManager () <AddCoinAnimationViewDelegate>
+@interface AddCoinAnimationManager () <AddCoinAnimationViewDelegate> {
+    NSUInteger calAddNum;
+    NSUInteger calHandleNum;
+}
 
 @property (nonatomic, strong) AddCoinAnimationView  *addCoinAnimationView;
 @property (nonatomic, assign) NSUInteger             needToPlayCount;
@@ -46,6 +49,8 @@ static NSUInteger maxOnceRemoveAmount = 20;
 
 #pragma mark public
 - (void)addCoins:(NSInteger)coinNumber {
+    calAddNum += coinNumber;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger number = coinNumber;
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
@@ -69,6 +74,11 @@ static NSUInteger maxOnceRemoveAmount = 20;
 }
 
 - (void)popCoins:(NSInteger)coinNumber {
+    if(calHandleNum + coinNumber > calAddNum) {
+        coinNumber = calAddNum - calHandleNum;
+    }
+    calHandleNum += coinNumber;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger number = coinNumber;
         NSUInteger existsCoinAmount = [self.addCoinAnimationView numberOfCoinItems];
@@ -87,12 +97,18 @@ static NSUInteger maxOnceRemoveAmount = 20;
 }
 
 - (void)removeCoins:(NSInteger)coinNumber {
+    if(calHandleNum + coinNumber > calAddNum) {
+        coinNumber = calAddNum - calHandleNum;
+    }
+    calHandleNum += coinNumber;
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger actuallyCoinNumber = coinNumber;
-        if(self.needToPlayCount >= coinNumber) {
-            self.needToPlayCount -= coinNumber;
+        if(self.needToPlayCount >= coinNumber + self.needToRemoveCount) {
+            self.needToPlayCount -= (coinNumber + self.needToRemoveCount);
             return ;
         } else {
+            actuallyCoinNumber += self.needToRemoveCount;
+            self.needToRemoveCount = 0;
             actuallyCoinNumber -= self.needToPlayCount;
             self.needToPlayCount = 0;
             NSInteger existCoinNumber = [self.addCoinAnimationView numberOfCoinItems];
@@ -177,12 +193,11 @@ static NSUInteger maxOnceRemoveAmount = 20;
     }
     
     self.actuallyAddNum -= coinNumber;
-    
+//    NSLog(@"actually remove coin : %lu", coinNumber);
     [self.addCoinAnimationView willRemoveCoins:coinNumber];
     
     [self.addCoinAnimationView removeCoins:coinNumber];
 }
-
 
 #pragma mark - CoinsFallingViewDelegate
 - (void)popCoinAnimationFinished {
@@ -211,18 +226,14 @@ static NSUInteger maxOnceRemoveAmount = 20;
         [self popCoins:0];
     }
     if(self.needToRemoveCount > 0) {
-        NSInteger tmp = self.needToRemoveCount;
-        self.needToRemoveCount = 0;
-        [self removeCoins:tmp];
+        [self removeCoins:0];
     }
 }
 
 - (void)removeActionFinished {
     
     if(self.needToRemoveCount > 0) {
-        NSInteger tmp = self.needToRemoveCount;
-        self.needToRemoveCount = 0;
-        [self removeCoins:tmp];
+        [self removeCoins:0];
     }
 }
 

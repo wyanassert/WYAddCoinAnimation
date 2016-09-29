@@ -41,7 +41,7 @@ float coinFallingRandom(float min, float length) {
     if (coinNumber * 1.0 / 100 < 1.5) {
         return 1.5;
     } else {
-        NSTimeInterval time = 1.5 + (coinNumber - 200) * 1.0 / 150;
+        NSTimeInterval time = 1.5 + (coinNumber - 150) * 1.0 / 150;
         if (time > 3.0) {
             return 3.0;
         }

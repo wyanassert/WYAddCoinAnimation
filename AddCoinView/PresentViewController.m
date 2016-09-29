@@ -128,14 +128,20 @@
 - (void)addPopTask:(NSInteger)coins {
     static NSInteger i = 0;
     i++;
+    static CGFloat delta = 0;
+    delta += 1;
+    NSInteger deltaInt = (NSInteger)delta;
     NSInteger tmp = i;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if(tmp%2) {
-            [self.addCoinAnimationManager removeCoins:coins];
+            [self.addCoinAnimationManager removeCoins:coins + deltaInt];
         } else {
-            [self.addCoinAnimationManager popCoins:coins];
+            [self.addCoinAnimationManager popCoins:coins + deltaInt];
         }
     });
+    if(deltaInt) {
+        delta = 0;
+    }
 }
 
 #pragma mark AddCoinAnimationManagerDelegate
@@ -158,7 +164,7 @@
 
 #pragma mark - Getter 
 - (NSArray *)numberArray {
-    return @[@4, @20, @80];
+    return @[@3, @12, @18];
 }
 
 @end
